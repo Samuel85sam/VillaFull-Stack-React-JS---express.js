@@ -1,19 +1,26 @@
-import { NavLink, useNavigation,Outlet } from "react-router-dom"
+import { NavLink, useNavigation, Outlet } from "react-router-dom"
 
 export default function Root() {
     const navigation = useNavigation();
     return (
         <>
-            <nav id="sidebar">
+
+            <div id="sidebar">
+                
+
+                <nav>
                 <NavLink to="/index">Home</NavLink>
                 <NavLink to="/auth">Login</NavLink>
                 <NavLink to="/reservation">Reservation</NavLink>
-                <NavLink to="/avis">Livre D'or</NavLink>
-            </nav>
+                <NavLink to="/comments">Livre D'or</NavLink>
+                </nav>
+            </div>
             <div id="detail"
-                className={
-                    navigation.state === "loading" ? "loading" : ""
-                }>
+            // className={
+            //     navigation.state === "loading" ? "loading" : ""
+            // }
+            >
+                <h1>Villa Kalokairi</h1>
                 <Outlet />
             </div>
         </>

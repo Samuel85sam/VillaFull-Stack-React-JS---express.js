@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
+//import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
-
 import AuthService from "../../services/auth.service";
 
 
 
 
 const Login = () => {
+
+  //-------------------------------------------------
   const form = useRef();
   const checkBtn = useRef();
 
@@ -20,6 +20,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
+  //-------------------------------------------------
 
   const required = (value) => {
     if (!value) {
@@ -31,7 +32,7 @@ const Login = () => {
     }
   };
   //---------------------------------------------
-  
+
   //Ces fonctions mettent à jour les états locaux en fonction des changements dans les champs du nom d'utilisateur et du mot de passe.
 
   const onChangeUsername = (e) => {
@@ -82,10 +83,10 @@ const Login = () => {
     }
   };
   //----------------------------------------------
-   return (
-   <>
-          <h1>Login / Register</h1>
-          <div className="col-md-12">
+  return (
+    <>
+      <h1>Login</h1>
+      <div className="col-md-12">
         <div className="card card-container">
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -96,25 +97,25 @@ const Login = () => {
           <Form onSubmit={handleLogin} ref={form}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <Input
+              <input
                 type="text"
                 className="form-control"
                 name="username"
                 value={username}
                 onChange={onChangeUsername}
-                validations={[required]}
+                //validations={[required]}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <Input
+              <input
                 type="password"
                 className="form-control"
                 name="password"
                 value={password}
                 onChange={onChangePassword}
-                validations={[required]}
+                //validations={[required]}
               />
             </div>
 
@@ -139,8 +140,8 @@ const Login = () => {
         </div>
       </div>
 
-          </>
-   )
+    </>
+  )
 };
 
 export default Login;

@@ -8,26 +8,28 @@ import './index.css'
 import ErrorPage from "./error-page.jsx";
 import Root from "./routes/root.jsx";
 import Index from "./routes/index.jsx";
-import Avis from "./routes/avis.jsx";
+import Comments from "./routes/comments.jsx";
 import Reservation from "./routes/reservation.jsx";
 import Auth from "./routes/auth.jsx"
-
+import CommentsBook from "./components/comments/commentsBook.jsx";
+import CommentDetail from "./components/comments/commentDetail.jsx";
+import CommentForm from "./components/comments/commentForm.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage />,
-    children:[
+    errorElement: <div>ROOT Oops! There was an error.</div>,
+    children: [
       {
-        index: true, 
-        element: <Index /> ,
+        index: true,
+        element: <Index />,
         errorElement: <div>Oops! There was an error.</div>,
       },
       {
         path: "auth",
         element: <Auth />,
-        errorElement: <div>Oops! There was an error.</div>,
+        errorElement: <ErrorPage />
       },
       {
         path: "reservation",
@@ -38,16 +40,33 @@ const router = createBrowserRouter([
         path: "index",
         element: <Index />,
         errorElement: <div>Oops! There was an error.</div>,
-       },
+      },
       {
         path: "reservation",
         element: <Reservation />,
         errorElement: <div>Oops! There was an error.</div>,
       },
       {
-        path: "avis",
-        element: <Avis />,
+        path: "comments",
+        element: <Comments />,
         errorElement: <div>Oops! There was an error.</div>,
+        children: [
+          {
+            index: true,
+            element: <CommentsBook />,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
+          {
+            path: "commentForm",
+            element: <CommentForm />,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
+          {
+            path: "commentDetail",
+            element: <CommentDetail />,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
+        ]
       },
     ]
   },
