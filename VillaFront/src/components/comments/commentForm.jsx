@@ -24,7 +24,7 @@ function CommentForm() {
   const commentPosted = async () => {
     const result = await PostForm();
     try {
-      if (result === 200) {
+      if (result === 200||201) {
         navigate("/comments");
         console.log("===> redirection comments");
       }

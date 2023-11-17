@@ -6,8 +6,6 @@ function Comments() {
       <div id="sidebar">
         <nav >
           <NavLink to="">livre d'or</NavLink>//!pourquoi ↑↑↑ reste selectionné (bleu)
-          
-          
           <NavLink to="./commentForm">votre avis</NavLink>
         </nav>
       </div>

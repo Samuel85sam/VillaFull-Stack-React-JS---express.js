@@ -10,8 +10,15 @@ const avisService = {
 
     fetchAll: async () => {
         const avis = await db.avis.findAll();
-        return avis.map(char => new avisDto(avis));
+        console.log(`db.avis.findAll ===>${avis.map(comments => comments.toJSON())}`);
+        return avis.map(comments => new avisDto(comments));
     },
+
+    // fetchAll: async () => {
+    //     const avis = await db.avis.findAll();
+    //     console.log(`db.avis.findAll ===>${avis.map(comments => comments)}`);
+    //     return avis.map(comments => new avisDto(comments));
+    // },
 
     fetchOne: async (id) => {
         const avis = await db.avis.findOne({

@@ -20,11 +20,11 @@ avisRouter.route('/POST')
 //     res.statusCode(405).send('Unavailable')
 // });
 
-// avisRouter.route('/GETALL')
-// .post(avisController.getAll)
-// .all((res,req)=> {
-//     res.statusCode(405).send('Unavailable')
-// });
+avisRouter.route('/GETALL')
+.get(avisController.getAll)
+.all((res,req)=> {
+    res.statusCode(405).send('Unavailable')
+});
 
 // avisRouter.route('/GETONE')
 // .post(avisController.getOne)

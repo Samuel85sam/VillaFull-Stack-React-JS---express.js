@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getAll } from '../../api/CRUD.api'
 
-function CommentsBook() {
+const CommentsBook = () => {
+  const [comments, setComments] = useState([])
+  const route = 'avis/GETALL'
+  
+  useEffect(() => {
+    getAll(route)
+      .then(result => setComments(result.data));
+
+  }, [])
+  
+ 
   return (
-    <h2>Ils Ont Donnés Leurs Avis:</h2>
-  )
-}
+    <div>
+      <h2>Tous Les Commentaires:</h2>
+      <ul>
+        {comments.map(comment => (
+          <li key={comment.id}>
+            <p>{comment.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+
+
+
+
 
 export default CommentsBook
