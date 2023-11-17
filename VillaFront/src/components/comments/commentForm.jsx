@@ -121,6 +121,8 @@ function CommentForm() {
             name="note"
             className='input' />
         </label>
+        <br />
+        <br />
         <button type='submit' onClick={handleSubmit}>POST</button>
       </form>
     </>
