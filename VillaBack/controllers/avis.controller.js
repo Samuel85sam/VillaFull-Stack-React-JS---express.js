@@ -6,27 +6,32 @@ const avisController = {
     addAvis: async (req, res) => {
         // Récupération du formulaire
         const avisData = req.body;
-        console.log("avisData = ↓↓↓");
+        console.log('req.body ===> ↓↓↓');
         console.log(req.body);
         // Validation les informations récupérées depuis le formulaire
         const validatedData = await avisValidator.validate(avisData);
         // Destructuring des données vérifées
-        const { client, prenom, note, comment, date } = validatedData;
-             // Envoi des données validées et hashées à la DB
-        const avisInserted = await authService.insert({ client, prenom, note, comment, date });
+        const { firstName, lastName, comment, note} = validatedData;
+           
+        //!const { client, firstName, comment, note, date } = validatedData;
+           // Envoi des données validées et hashées à la DB
+           const avisInserted = await avisService.insert({ firstName, lastName, comment, note });
+
+        //!const avisInserted = await avisService.insert({ client, firstName, comment, note, date });
         if (avisInserted) {
             res
                 // On informe que l'insertion des données s'est correctement déroulée, et que l'avis est crée
                 .status(201)
                 // On redirige les informations utilisateur sur la route homepage (ne pas oublier de gérer la redirection dans le front)
-                .location(`api/auth/login`)//! ← ??
+               //.location(`api/avis/POST`)//! ← ?????????????????????????????????????????????????????????????????????
                 .json(avisInserted);
-            console.log(`client ==>  ${client}`);
-            console.log(`prenom ==>  ${prenom}`);
-            console.log(`note ==>  ${note}`);
+           //! console.log(`client ==>  ${client}`);
+            console.log(`firstName ==>  ${firstName}`);
+            console.log(`lastName ==>  ${lastName}`);
             console.log(`comment ==>  ${comment}`);
-            console.log(`date ==>  ${date}`);
-            console.log(`==> insertion ok, compte crée`);
+            console.log(`note ==>  ${note}`);
+           //! console.log(`date ==>  ${date}`);
+            console.log(`==> comment stored`);
         }
     },
 

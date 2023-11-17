@@ -13,22 +13,31 @@ module.exports = (sequelize) => {
     const Avis = sequelize.define('avis', {
         
         // L'id se crée automatiquement si non spécifié ici
-        client: {
+        //! client: {
+        //!     type: DataTypes.STRING(50),
+        //!     allowNull: false,
+        //! },
+        firstName: {
             type: DataTypes.STRING(50),
             allowNull: false,
         },
-        note: {
-            type: DataTypes.INTEGER,
+        lastName: {
+            type: DataTypes.STRING(50),
             allowNull: false,
         },
         comment: {
             type: DataTypes.STRING(500),
-            allowNull: true,
-        },
-        date: {
-            type: DataTypes.DATE(undefined),
             allowNull: false,
         },
+        note: {
+            type: DataTypes.STRING(50),//!INTEGER,
+            allowNull: false,
+        },
+        
+        //! date: {
+        //!     type: DataTypes.DATE(undefined),
+        //!     allowNull: false,
+        //! },
             
         
     }, {
@@ -39,10 +48,12 @@ module.exports = (sequelize) => {
             {
                 // Création de contraintes
                 name: 'UK_avis',
-                fields: ['client', 'comment'],
+                fields: ['firstName', 'lastName','comment'],
                 unique: false,
             },
         ]
-    })
+    }
+    
+    )
     return Avis;
 }

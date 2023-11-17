@@ -3,6 +3,11 @@ const db = require('../models');
 
 const avisService = {
 
+    insert: async (data) => {
+        const avis = await db.avis.create(data)
+        return new avisDetailDto(avis)
+    },
+
     fetchAll: async () => {
         const avis = await db.avis.findAll();
         return avis.map(char => new avisDto(avis));
@@ -36,10 +41,7 @@ const avisService = {
     //     return characters.map(char => new CharacterDTO(char))
     // },
 
-    insert: async (data) => {
-        const avis = await db.avis.create(data)
-        return new avisDetailDto(avis)
-    },
+
 
     delete: async (id) => {
         const nbRowDeleted = await db.avis.destroy({

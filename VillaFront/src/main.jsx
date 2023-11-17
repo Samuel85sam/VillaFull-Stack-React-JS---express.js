@@ -42,11 +42,6 @@ const router = createBrowserRouter([
         errorElement: <div>Oops! There was an error.</div>,
       },
       {
-        path: "reservation",
-        element: <Reservation />,
-        errorElement: <div>Oops! There was an error.</div>,
-      },
-      {
         path: "comments",
         element: <Comments />,
         errorElement: <div>Oops! There was an error.</div>,
