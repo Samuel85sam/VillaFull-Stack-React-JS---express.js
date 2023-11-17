@@ -37,9 +37,20 @@ const avisController = {
 
     getAll: async (req, res) => {
         let allAvis = await avisService.fetchAll();
-       // console.log(`avis.controller  getAll: allAvis===========>$allAvis}`); 
-        return allAvis  
+ 
+        if (allAvis) {
+            console.log(allAvis);
+            res.status(200)
+            .json(allAvis)
+ 
+        }
+       // console.log(`avis.controller  getAll: allAvis===========>$allAvis}`);
     },
+    // getAll: async (req, res) => {
+    //     let allAvis = await avisService.fetchAll();
+    //    // console.log(`avis.controller  getAll: allAvis===========>$allAvis}`); 
+    //     return allAvis  
+    //},
 
     getOne: async (req, res) => {
         let avisId = req.body

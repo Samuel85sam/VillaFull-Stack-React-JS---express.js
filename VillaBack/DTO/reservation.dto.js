@@ -17,21 +17,23 @@ class reservationDto {
 class reservationDetailDto {
 
     id;
+    firstName;
+    LastName
     dateIn;
     dateOut;
-    client;
-    occupanQty;
-    avis;
+    mail;
+    residentQty;
 
 
     constructor(data) {
         this.id = data.id;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
         this.dateIn = data.dateIn;
         this.dateOut = data.dateOut;
-        this.client = data.client;
-        this.occupantQty = data.occupantQty;
-        this.avis = data.client;
+        this.mail = data.mail;
+        this.residentQty = data.residentQty;
     }
 }
 
-module.exports = {reservationDto,reservationDetailDto};
+module.exports = { reservationDto, reservationDetailDto };

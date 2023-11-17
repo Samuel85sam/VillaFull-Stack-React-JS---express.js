@@ -18,8 +18,11 @@ const CommentsBook = () => {
       <ul>
         {comments.map(comment => (
           <li key={comment.id}>
-            <p>{comment.text}</p>
-          </li>
+            <p>{comment.firstName}</p>
+            <p>{comment.lastName}</p>
+            <p>{comment.comment}</p>
+            <p>{comment.note}</p>
+           </li>
         ))}
       </ul>
     </div>

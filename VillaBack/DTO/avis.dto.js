@@ -2,8 +2,8 @@ class avisDto {
 
     id;
     //!client;
-    firstname;
-    lastname;
+    firstName;
+    lastName;
     comment;
     note;
     //!date;
@@ -11,8 +11,8 @@ class avisDto {
     constructor(data) {
         this.id = data.id;
         //!this.client = data.client;
-        this.firstname = data.firstname;
-        this.lastname = data.lastname;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
         this.comment = data.comment;
         this.note = data.note;
         //!this.date = data.date;
@@ -36,8 +36,8 @@ class avisDetailDto {
 
     id;
     //!client;
-    firstname;
-    lastname;
+    firstName;
+    lastName;
     comment;
     note;
     //!date;
@@ -45,8 +45,8 @@ class avisDetailDto {
     constructor(data) {
         this.id = data.id;
         //!this.client = data.client;
-        this.firstname = data.firstname;
-        this.lastname = data.lastname;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
         this.comment = data.comment;
         this.note = data.note;
         //!this.date = data.date;

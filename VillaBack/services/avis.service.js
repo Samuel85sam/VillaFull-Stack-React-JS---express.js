@@ -22,7 +22,7 @@ const avisService = {
 
     fetchOne: async (id) => {
         const avis = await db.avis.findOne({
-            where: { id } // --> { id: id }
+            where: { id: id }
         });
 
         return new avisDetailDto(avis);
