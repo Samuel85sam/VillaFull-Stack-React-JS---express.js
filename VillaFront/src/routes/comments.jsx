@@ -17,16 +17,13 @@ function Comments() {
         </button>
         {writeComment ? <CommentsBook /> : <CommentForm />}
       </div>
-      <div id="root"
-      // className={
-      //     navigation.state === "loading" ? "loading" : ""
-      // }
-      >
-      </div>
+
     </>
 
   )
 }
+
+
 
 export default Comments
 

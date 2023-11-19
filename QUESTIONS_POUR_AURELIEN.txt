@@ -1,1 +1,27 @@
+BACK-------------------------------------------------
+
+
+
 avis controller l26 .location
+
+
+
+les resa ne se storent pas
+
+
+
+
+
+
+
+
+
+
+
+FRON------------------------------------------------
+
+
+
+commentForm l25 //! TROUVER UNE NAVIGATION POUR ALLEZ DIRRECTEMENT SUR LE COMPONENT SANS CHANGER URL
+
+resaForm l30 //! TROUVER UNE NAVIGATION POUR ALLEZ DIRRECTEMENT SUR LE COMPONENT SANS CHANGER URL

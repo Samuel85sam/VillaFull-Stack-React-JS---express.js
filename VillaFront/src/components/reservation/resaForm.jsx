@@ -13,7 +13,7 @@ function ResaForm() {
     dateIn: "5/1/2024",
     dateOut: "15/2/2024",
     mail: "samueldemees@gmail.com",
-    residenQty: "3",
+    residentQty: "3",
 
   });
 
@@ -21,19 +21,35 @@ function ResaForm() {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
 
+ 
   const navigate = useNavigate();
+  const redirect = async () => {
+    const result = await PostForm()
 
-  const resaRegistered = async () => {
-    const result = await PostForm();
     try {
-      if (result === 200||201) {
-        navigate("./agenda");
-        console.log("===> redirection agenda");
+      if (result === 200 || 201) {
+
+        navigate("");
+        console.log('====> navigate("/");');
+        window.location.reload();
+
       }
     } catch (err) {
       console.error(err);
     }
-  };
+  }
+  // const resaRegistered = async () => {
+  //   const result = await PostForm();
+  //   try {
+  //     if (result === 200||201) {
+  //       //! TROUVER UNE NAVIGATION POUR ALLEZ DIRRECTEMENT SUR LE COMPONENT SANS CHANGER URL
+  //       navigate("/reservation");
+  //       console.log("===> redirection agenda");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,27 +62,27 @@ function ResaForm() {
       return;
     }
     if (inputValue.dateIn === "") {
-      alert("veuillez saisir un comentaire.");
+      alert("veuillez saisir une date de début.");
       return;
     }
     if (inputValue.dateOut === "") {
-      alert("veuillez saisir une note")
+      alert("veuillez saisir une date de fin")
       return;
     }
     if (inputValue.mail === "") {
-      alert("veuillez saisir une note")
+      alert("veuillez saisir une adresse mail")
       return;
     }
     if (inputValue.residentQty === "") {
-      alert("veuillez saisir une note")
+      alert("veuillez indiquer le nombre d'occupant")
       return;
     }
 
     const route = 'reservation/ADD'
     
     PostForm(inputValue, route)
-
-    resaRegistered()
+    redirect()
+    // resaRegistered()
 
   };
 
@@ -138,6 +154,8 @@ function ResaForm() {
             name="residentQty"
             className='input' />
         </label>
+        <br />
+        <br />
         <button type='submit' onClick={handleSubmit}>POST</button>
       </form>
     </>

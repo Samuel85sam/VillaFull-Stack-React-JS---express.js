@@ -1,7 +1,7 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+
+import React, { useState } from 'react';
 import { PostForm } from '../../api/CRUD.api';
+import { useNavigate } from 'react-router-dom';
 
 function CommentForm() {
   const [inputValue, setInputValue] = useState({
@@ -11,33 +11,34 @@ function CommentForm() {
     note: "5",
   });
 
-  //   // État local pour déterminer si les données sont prêtes à être envoyées
-  //!const [readyToSend, isReadyToSend] = useState(false);
-
-// Fonction de gestion des changements dans les champs du formulaire
+  // Fonction de gestion des changements dans les champs du formulaire
   const handleChange = (name, value) => {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
 
   //fonction de redirrection après soumission du formulaire
   const navigate = useNavigate();
-  const commentPosted = async () => {
-    const result = await PostForm();
+  const redirect = async () => {
+    const result = await PostForm()
+
     try {
-      if (result === 200||201) {
-        navigate("/comments");
-        console.log("===> redirection comments");
+      if (result === 200 || 201) {
+
+        navigate("");
+        console.log('====> navigate("/");');
+        window.location.reload();
+
       }
     } catch (err) {
       console.error(err);
     }
-  };
-  
- // Fonction appelée lors de la soumission du formulaire
+  }
+
+  // Fonction appelée lors de la soumission du formulaire
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Empêche le comportement par défaut du formulaire (rechargement de la page)
 
-    
     //Validations et  contrôles de saisie pour garantir que les données sont correctes avant l'envoi
     if (inputValue.firstName === "") {
       alert("veuillez saisir un prenom.");
@@ -54,30 +55,18 @@ function CommentForm() {
     if (inputValue.note === "") {
       alert("veuillez saisir une note")
       return;
-    }
-    //!isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
-    
-    
-    const route = 'avis/POST'
-    
-    PostForm(inputValue, route)
+    };
 
-    commentPosted()
+    const route = 'avis/POST';
+
+    PostForm(inputValue, route);
+
+    redirect()
 
   };
 
-  //!Si "readyToSend" est true, alors appeler PostForm depuis CRUD.api
-  //! useEffect(() => {
-  //!   readyToSend === false ? null : PostForm(inputValue);
-  //!   console.log(`inputValue ===> ${inputValue}`)
-  //! }, [readyToSend]);
-
-
-
-
   return (
     <>
-
       <form>
         <label>prenom:
           <input
@@ -126,7 +115,6 @@ function CommentForm() {
         <button type='submit' onClick={handleSubmit}>POST</button>
       </form>
     </>
-
   )
 };
 

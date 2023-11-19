@@ -1,26 +1,24 @@
-import { redirect } from "react-router-dom"
+import { useState } from "react";
 import Agenda from "../components/reservation/agenda"
+import ResaForm from "../components/reservation/resaForm";
 
+function Reservation () {
+    const [insertResa, setInsertResa] = useState(true);
+    const handleAction = function () {
+        setInsertResa(!insertResa);
+    };
 
-
-export default function Reservation(){
-    const navigate = useNavigate()
-    const redirect = () => {
-
-    }
     return (
-        <>
-        <h1>Reservation</h1>
-        <Agenda/>
-        <button 
-        className="btn btn-primary btn-block"
-        onClick={redirect} >
-               
-                <span> → RESERVER ← </span>
-            </button>
-
-        
-        
+        <>    <h1>Livre d'or</h1>
+            <div id="sidebar">
+                <button onClick={handleAction}>
+                    {insertResa ? "RESERVER" : "Notre agenda"}
+                </button>
+                {insertResa ?   <Agenda /> : <ResaForm />}
+            </div>
         </>
+
     )
 }
+
+export default Reservation

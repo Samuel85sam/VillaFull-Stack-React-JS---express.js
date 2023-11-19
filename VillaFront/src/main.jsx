@@ -11,9 +11,11 @@ import Index from "./routes/index.jsx";
 import Comments from "./routes/comments.jsx";
 import Reservation from "./routes/reservation.jsx";
 import Auth from "./routes/auth.jsx"
-import CommentsBook from "./components/comments/commentsBook.jsx";
-import CommentDetail from "./components/comments/commentDetail.jsx";
-import CommentForm from "./components/comments/commentForm.jsx";
+// import CommentsBook from "./components/comments/commentsBook.jsx";
+// import CommentDetail from "./components/comments/commentDetail.jsx";
+// import CommentForm from "./components/comments/commentForm.jsx";
+// import Agenda from "./components/reservation/agenda.jsx";
+// import ResaForm from "./components/reservation/resaForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,18 @@ const router = createBrowserRouter([
         path: "reservation",
         element: <Reservation />,
         errorElement: <div>Oops! There was an error.</div>,
+        // children: [
+        //   {
+        //     index: true,
+        //     element: <Agenda />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        //   {
+        //     path: "resaform",
+        //     element: <ResaForm />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        // ]
       },
       {
         path: "index",
@@ -45,23 +59,28 @@ const router = createBrowserRouter([
         path: "comments",
         element: <Comments />,
         errorElement: <div>Oops! There was an error.</div>,
-        children: [
-          {
-            index: true,
-            element: <CommentsBook />,
-            errorElement: <div>Oops! There was an error.</div>,
-          },
-          {
-            path: "commentForm",
-            element: <CommentForm />,
-            errorElement: <div>Oops! There was an error.</div>,
-          },
-          {
-            path: "commentDetail",
-            element: <CommentDetail />,
-            errorElement: <div>Oops! There was an error.</div>,
-          },
-        ]
+        // children: [
+        //   {
+        //     index: true,
+        //     element: <CommentsBook />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        //   {
+        //     path: "commentsBook",
+        //     element: <CommentsBook />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        //   {
+        //     path: "commentForm",
+        //     element: <CommentForm />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        //   {
+        //     path: "commentDetail",
+        //     element: <CommentDetail />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        // ]
       },
     ]
   },
