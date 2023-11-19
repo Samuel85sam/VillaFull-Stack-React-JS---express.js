@@ -11,18 +11,35 @@ module.exports = (sequelize) => {
     // Définition de l'object sequelize (db)
     const Auth = sequelize.define('auth', {
         // L'id se crée automatiquement si non spécifié ici
-        login: {
+        nom: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        hashedPassword: {
-            type: DataTypes.STRING(250),
+        
+        prenom:{
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
-        jwt: {
-            type: DataTypes.STRING(500),
-            allowNull: true,
-        }
+        adresse: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        tel: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        email: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        loginName: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        HashedPassword: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
     }, {
         // Option de création propre à Sequelize (voir doc)
         createdAt: true,
@@ -31,7 +48,7 @@ module.exports = (sequelize) => {
             {
                 // Création de contraintes
                 name: 'UK_auth__jwt',
-                fields: ['login', 'jwt'],
+                fields: ['login'],
                 unique: false,
             },
         ]

@@ -1,13 +1,21 @@
 class userDto {
 
-    id;
-    login;
-    hashedPassword;
+    nom;
+    prenom;
+    adresse;
+    tel;
+    email;
+    loginName;
+    HashedPassword;
 
     constructor(data) {
-        this.id = data.id;
-        this.login = data.login;
-        this.hashedPassword = data.hashedPassword;
+        this.nom = data.nom
+        this.prenom = data.prenom
+        this.adresse = data.adresse
+        this.tel = data.tel
+        this.email = data.email
+        this.loginName = data.login
+        this.HashedPassword = data.password
     }
 }
 

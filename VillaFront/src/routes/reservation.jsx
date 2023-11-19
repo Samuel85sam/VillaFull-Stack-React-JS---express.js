@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Agenda from "../components/reservation/agenda"
-import ResaForm from "../components/reservation/resaForm";
+import Agenda from "../components/reservation.components/agenda"
+import ResaForm from "../components/reservation.components/resaForm";
 
 function Reservation () {
     const [insertResa, setInsertResa] = useState(true);
@@ -9,7 +9,7 @@ function Reservation () {
     };
 
     return (
-        <>    <h1>Livre d'or</h1>
+        <>    <h1>Réserver un séjour</h1>
             <div id="sidebar">
                 <button onClick={handleAction}>
                     {insertResa ? "RESERVER" : "Notre agenda"}

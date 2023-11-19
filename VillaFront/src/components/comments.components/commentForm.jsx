@@ -1,8 +1,7 @@
 
-import React, { useState } from 'react';
+import { React, useState, useEffect } from "react";
 import { PostForm } from '../../api/CRUD.api';
 import { useNavigate } from 'react-router-dom';
-
 function CommentForm() {
   const [inputValue, setInputValue] = useState({
     firstName: "Sam",
@@ -11,19 +10,22 @@ function CommentForm() {
     note: "5",
   });
 
+  // État local pour déterminer si les données sont prêtes à être envoyées
+  const [readyToSend, isReadyToSend] = useState(false);
+
   //gestion form.
   const handleChange = (name, value) => {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
 
-    //redirection after-POST
+  //redirection after-POST
   const navigate = useNavigate();
   const redirect = async () => {
     const result = await PostForm()
     try {
       if (result === 200 || 201) {
         navigate("");
-        
+
         window.location.reload();
       }
     } catch (err) {
@@ -31,9 +33,9 @@ function CommentForm() {
     }
   }
 
-    //call de la fct à la soumission du form.
+  //call de la fct à la soumission du form.
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     //1st Validation 
     if (inputValue.firstName === "") {
@@ -53,12 +55,20 @@ function CommentForm() {
       return;
     };
 
+    isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
+
     //call API
     const route = 'avis/POST';
     PostForm(inputValue, route);
+
     //redirection
     redirect()
   };
+
+  // !useEffect(() => {
+  // !  // Si "readyToSend" est true, alors appelez PostToApi
+  // !  readyToSend === false ? null : PostToApi(inputValue);
+  // !}, [readyToSend]);
 
   return (
     <>

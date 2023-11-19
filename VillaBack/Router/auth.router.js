@@ -1,13 +1,13 @@
 const authController = require('../controllers/auth.controller');
 const authRouter = require('express').Router();
 
-authRouter.route('/login')
+authRouter.route('/LOGIN')
 .post(authController.login)
 .all((res,req) => {
     res.statusCode(405).send('Login Unavalable')
 });
 
-authRouter.route('/register')
+authRouter.route('/REGISTER')
 .post(authController.register)
 .all((res,req)=> {
     res.statusCode(405).send('Unavailable')

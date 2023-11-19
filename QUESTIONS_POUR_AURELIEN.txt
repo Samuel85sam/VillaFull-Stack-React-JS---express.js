@@ -20,3 +20,13 @@ avis controller l26 .location
 
 FRONT------------------------------------------------
 
+
+
+resaForm, signUpForm,signInForm et commentForm
+
+//! useEffect(() => {
+//!   // Si "readyToSend" est true, alors appeler PostToApi
+//!   readyToSend === false ? null : postLogin(inputValue);
+//!   console.log("envoi inputValue envoyée à postToApi ↓↓↓");
+//!   console.log(inputValue);
+//! }, [readyToSend]);

@@ -1,6 +1,6 @@
 import React from 'react'
-import CommentsBook from '../components/comments/commentsBook'
-import CommentForm from '../components/comments/commentForm'
+import CommentsBook from '../components/comments.components/commentForm'
+import CommentForm from '../components/comments.components/commentForm'
 import { useState } from 'react';
 
 function Comments() {
@@ -22,8 +22,6 @@ function Comments() {
 
   )
 }
-
-
 
 export default Comments
 
