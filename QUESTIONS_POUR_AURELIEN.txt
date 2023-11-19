@@ -6,7 +6,7 @@ avis controller l26 .location
 
 
 
-les resa ne se storent pas !!!>  note is a required field
+
 
 
 
