@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PostForm } from '../../api/CRUD.api';
 
@@ -21,7 +21,7 @@ function ResaForm() {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
 
- 
+
   const navigate = useNavigate();
   const redirect = async () => {
     const result = await PostForm()
@@ -38,18 +38,6 @@ function ResaForm() {
       console.error(err);
     }
   }
-  // const resaRegistered = async () => {
-  //   const result = await PostForm();
-  //   try {
-  //     if (result === 200||201) {
-  //       //! TROUVER UNE NAVIGATION POUR ALLEZ DIRRECTEMENT SUR LE COMPONENT SANS CHANGER URL
-  //       navigate("/reservation");
-  //       console.log("===> redirection agenda");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,10 +67,10 @@ function ResaForm() {
     }
 
     const route = 'reservation/ADD'
-    
+
     PostForm(inputValue, route)
     redirect()
-    // resaRegistered()
+
 
   };
 
