@@ -11,35 +11,31 @@ function CommentForm() {
     note: "5",
   });
 
-  // Fonction de gestion des changements dans les champs du formulaire
+  //gestion form.
   const handleChange = (name, value) => {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  //fonction de redirrection après soumission du formulaire
+    //redirection after-POST
   const navigate = useNavigate();
   const redirect = async () => {
     const result = await PostForm()
-
     try {
       if (result === 200 || 201) {
-
         navigate("");
-        console.log('====> navigate("/");');
+        
         window.location.reload();
-
       }
     } catch (err) {
       console.error(err);
     }
   }
 
-  // Fonction appelée lors de la soumission du formulaire
-
+    //call de la fct à la soumission du form.
   const handleSubmit = (e) => {
-    e.preventDefault(); // Empêche le comportement par défaut du formulaire (rechargement de la page)
+    e.preventDefault(); 
 
-    //Validations et  contrôles de saisie pour garantir que les données sont correctes avant l'envoi
+    //1st Validation 
     if (inputValue.firstName === "") {
       alert("veuillez saisir un prenom.");
       return;
@@ -57,12 +53,11 @@ function CommentForm() {
       return;
     };
 
+    //call API
     const route = 'avis/POST';
-
     PostForm(inputValue, route);
-
+    //redirection
     redirect()
-
   };
 
   return (
@@ -117,6 +112,5 @@ function CommentForm() {
     </>
   )
 };
-
 
 export default CommentForm

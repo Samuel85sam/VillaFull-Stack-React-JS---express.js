@@ -1,12 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PostForm } from '../../api/CRUD.api';
 
 function ResaForm() {
-
-
-
   const [inputValue, setInputValue] = useState({
     firstName: "Sam",
     lastName: "Dem",
@@ -14,33 +11,32 @@ function ResaForm() {
     dateOut: "15/2/2024",
     mail: "samueldemees@gmail.com",
     residentQty: "3",
-
   });
 
+  //gestion form.
   const handleChange = (name, value) => {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
-
-
+  //redirection after-POST
   const navigate = useNavigate();
   const redirect = async () => {
     const result = await PostForm()
-
     try {
       if (result === 200 || 201) {
-
         navigate("");
-        console.log('====> navigate("/");');
+        
         window.location.reload();
-
       }
     } catch (err) {
       console.error(err);
     }
   }
 
+  //call de la fct à la soumission du form. 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    //1st Validation 
     if (inputValue.firstName === "") {
       alert("veuillez saisir un prenom.");
       return;
@@ -66,9 +62,10 @@ function ResaForm() {
       return;
     }
 
+    //call API
     const route = 'reservation/ADD'
-
     PostForm(inputValue, route)
+    //redirection
     redirect()
 
 

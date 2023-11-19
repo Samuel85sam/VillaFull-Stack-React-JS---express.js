@@ -6,7 +6,7 @@ avis controller l26 .location
 
 
 
-les resa ne se storent pas
+les resa ne se storent pas !!!>  note is a required field
 
 
 
@@ -18,10 +18,5 @@ les resa ne se storent pas
 
 
 
-FRON------------------------------------------------
+FRONT------------------------------------------------
 
-
-
-commentForm l25 //! TROUVER UNE NAVIGATION POUR ALLEZ DIRRECTEMENT SUR LE COMPONENT SANS CHANGER URL
-
-resaForm l30 //! TROUVER UNE NAVIGATION POUR ALLEZ DIRRECTEMENT SUR LE COMPONENT SANS CHANGER URL

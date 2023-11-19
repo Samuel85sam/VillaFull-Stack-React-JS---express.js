@@ -1,12 +1,12 @@
-const reservationValidator = require('../validators/avis.validator')
-const reservationService = require('../services/avis.service');
+const reservationValidator = require('../validators/reservation.validator')
+const reservationService = require('../services/reservation.service');
 //const { diskStorage } = require('multer');
 
 const reservationController = {
     addResa: async (req, res) => {
         const resaData = req.body;
-        console.log('req.body ===> ↓↓↓');
-        console.log(req.body);
+        // console.log('req.body ===> ↓↓↓');
+        // console.log(req.body);
 
         const validatedData = await reservationValidator.validate(resaData);
         // Destructuring des données vérifées

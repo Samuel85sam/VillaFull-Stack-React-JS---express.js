@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(50),
             allowNull: false,
         },
-        dateIN: {
+        dateIn: {
             type: DataTypes.STRING(50),
             allowNull: false,
         },
