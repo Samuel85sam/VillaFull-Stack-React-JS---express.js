@@ -1,7 +1,6 @@
-import React from 'react'
-import CommentsBook from '../components/comments.components/commentForm'
+import { useState,React } from 'react';
+import CommentsBook from '../components/comments.components/commentsBook'
 import CommentForm from '../components/comments.components/commentForm'
-import { useState } from 'react';
 
 function Comments() {
   const [writeComment, setWriteComment] = useState(true);
@@ -10,14 +9,14 @@ function Comments() {
   };
 
   return (
-    <>    <h1>Livre d'or</h1>
+    <>
+      <h1>Livre d'or</h1>
       <div id="sidebar">
         <button onClick={handleAction}>
           {writeComment ? "Laisser un Commentaire" : "Livre D'Or"}
         </button>
         {writeComment ? <CommentsBook /> : <CommentForm />}
       </div>
-
     </>
 
   )
@@ -25,7 +24,3 @@ function Comments() {
 
 export default Comments
 
-/* <nav >
-        <NavLink to="./">livre d'or</NavLink>
-        <NavLink to="./commentForm">votre avis</NavLink>
-      </nav> */

@@ -1,23 +1,22 @@
-import { useState } from "react";
+import { useState, React } from "react";
 import Agenda from "../components/reservation.components/agenda"
 import ResaForm from "../components/reservation.components/resaForm";
 
-function Reservation () {
+function Reservation() {
     const [insertResa, setInsertResa] = useState(true);
     const handleAction = function () {
         setInsertResa(!insertResa);
-    };
-
+    };  
     return (
-        <>    <h1>Réserver un séjour</h1>
+        <>
+            <h1>Réserver un séjour</h1>
             <div id="sidebar">
                 <button onClick={handleAction}>
                     {insertResa ? "RESERVER" : "Notre agenda"}
                 </button>
-                {insertResa ?   <Agenda /> : <ResaForm />}
+                {insertResa ? <Agenda /> : <ResaForm />}
             </div>
-        </>
-
+        </> 
     )
 }
 

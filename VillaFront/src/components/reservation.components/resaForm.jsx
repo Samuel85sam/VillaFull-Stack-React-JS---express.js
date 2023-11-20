@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react';
+import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PostForm } from '../../api/CRUD.api';
 
@@ -12,7 +11,6 @@ function ResaForm() {
     mail: "samueldemees@gmail.com",
     residentQty: "3",
   });
-
   // État local pour déterminer si les données sont prêtes à être envoyées
   const [readyToSend, isReadyToSend] = useState(false);
 

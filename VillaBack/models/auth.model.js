@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
             {
                 // Création de contraintes
                 name: 'UK_auth__jwt',
-                fields: ['login'],
+                fields: ['loginName'],
                 unique: false,
             },
         ]

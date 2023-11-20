@@ -82,9 +82,9 @@ import axios from "axios";
 
     export const getAll = async  (route) => {
         try {
-            //console.log(`Call.api ==> ${route}`)
+            console.log(`Call.api ==> ${route}`)
             const response = await axios.get(`http://localhost:3002/api/${route}`)
-            //console.log(`response=====>${response}`);
+            console.log(`response=====>${response}`);
 
             if (response.status == 200||201) {
               // console.log(`call.api.GetAll response status ===> ${response.status}`);

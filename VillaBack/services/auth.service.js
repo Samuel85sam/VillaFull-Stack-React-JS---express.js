@@ -11,10 +11,10 @@ const authService = {
     return new userDto(user);
   },
 
-  exist: async (login) => {
-    console.log(`login sended ===>${login}`);
+  exist: async (loginName) => {
+    console.log(`login sended ===>${loginName}`);
     const user = await db.user.findOne({
-      where: { login },
+      where: { loginName },
     });
 
     return new userDto(user);

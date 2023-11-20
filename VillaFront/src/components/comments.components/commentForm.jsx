@@ -1,7 +1,8 @@
 
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { PostForm } from '../../api/CRUD.api';
 import { useNavigate } from 'react-router-dom';
+
 function CommentForm() {
   const [inputValue, setInputValue] = useState({
     firstName: "Sam",

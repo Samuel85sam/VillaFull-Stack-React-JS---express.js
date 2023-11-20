@@ -36,6 +36,15 @@ function SignUp() {
         }
     }
 
+    const postAndRedirect = () => {
+        //call API
+        const route = 'auth/REGISTER';
+        PostForm(inputValue, route);
+
+        //redirection
+        redirect()
+    }
+
     //call de la fct à la soumission du form. 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -71,19 +80,13 @@ function SignUp() {
         }
 
         isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
-
-        //call API
-        const route = 'auth/REGISTER';
-        PostForm(inputValue, route);
-
-        //redirection
-        redirect()
     };
 
-    // !useEffect(() => {
-    // !    // Si "readyToSend" est true, alors appelez PostToApi
-    // !    readyToSend === false ? null : PostToApi(inputValue);
-    // !}, [readyToSend]);
+        
+    useEffect(() => {
+        // Si "readyToSend" est true, alors call API ==> PostForm
+        readyToSend === false ? null : postAndRedirect();
+    }, [readyToSend]);
 
     return (
         <div className="RegistrationDiv">
@@ -140,7 +143,7 @@ function SignUp() {
                     name="loginName"
                     className="input"
                     value={inputValue.loginName}
-                    onChange={(e) => handleChange("login", e.target.value)}
+                    onChange={(e) => handleChange("loginName", e.target.value)}
                 />
                 <label htmlFor="password">Password :</label>
                 <input

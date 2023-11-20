@@ -5,11 +5,13 @@ const CommentsBook = () => {
   const [comments, setComments] = useState([])
   const route = 'avis/GETALL'
 
+
   useEffect(() => {
     getAll(route)
-      .then(result => setComments(result.data));
+    .then(result => setComments(result.data));
+    //console.log(result))
 
-  }, [])
+  }, [comments])
 
 
   return (
