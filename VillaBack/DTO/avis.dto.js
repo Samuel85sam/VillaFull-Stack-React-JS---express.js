@@ -1,6 +1,6 @@
 class avisDto {
 
-    id;
+    
     //!client;
     firstName;
     lastName;
@@ -9,7 +9,7 @@ class avisDto {
     //!date;
 
     constructor(data) {
-        this.id = data.id;
+        
         //!this.client = data.client;
         this.firstName = data.firstName;
         this.lastName = data.lastName;

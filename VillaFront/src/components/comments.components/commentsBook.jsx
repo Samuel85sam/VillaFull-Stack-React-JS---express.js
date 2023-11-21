@@ -10,8 +10,7 @@ const CommentsBook = () => {
     getAll(route)
     .then(result => setComments(result.data));
     //console.log(result))
-
-  }, [comments])
+  }, [])
 
 
   return (

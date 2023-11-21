@@ -30,7 +30,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 //! ↑↑↑ pas sûr de comprendre???
 // Ajout des models
-db.auth = require("./auth.model")(sequelize);
+db.user = require("./user.model")(sequelize);
 db.client = require("./client.model")(sequelize);
 db.avis = require("./avis.model")(sequelize);
 db.reservation = require("./reservation.model")(sequelize);

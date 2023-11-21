@@ -9,9 +9,10 @@ const avisService = {
     },
 
     fetchAll: async () => {
-        const avis = await db.avis.findAll();
-        console.log(`db.avis.findAll ===>${avis.map(comments => comments.toJSON())}`);
-        return avis.map(comments => new avisDto(comments));
+        const allAvis = await db.avis.findAll();
+       // console.log(`db.avis.findAll ===>${avis.map(comments => comments.toJSON())}`);
+        //return avis.map(comments => new avisDto(comments));
+        return allAvis
     },
 
     // fetchAll: async () => {

@@ -1,19 +1,21 @@
-import React from 'react'
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-//import Cookies from "js-cookie";
-import { PostForm } from '../../api/CRUD.api';
+import useAuthStore from "../../store/authStore";
+import { PostForm } from "../../api/CRUD.api";
+
 
 
 function SignIn() {
+    const login = useAuthStore((state) => state.login)
+
     // État local pour stocker les valeurs des champs du formulaire
     const [inputValue, setInputValue] = useState({
-        login: "SamDem",
+        loginName: "SamDem",
         password: "SamDem",
     });
 
-    // État local pour déterminer si les données sont prêtes à être envoyées
-    const [readyToSend, isReadyToSend] = useState(false);
+    //! // État local pour déterminer si les données sont prêtes à être envoyées
+    // !const [readyToSend, isReadyToSend] = useState(false);
 
     //gestion form.
     const handleChange = (name, value) => {
@@ -23,16 +25,31 @@ function SignIn() {
     //redirection after-POST
     const navigate = useNavigate();
     const redirect = async () => {
-        const result = await PostForm()
         try {
-            if (result === 200 || 201) {
-                navigate("index");
-
-                window.location.reload();
-            }
+            navigate("");
+            console.log('====================> REDIRECT TO USER INDEX  PAGE');
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
+    }
+
+    const postCheckAndRedirect = async (inputValue) => {
+        const formValues = inputValue
+        const route = 'auth/LOGIN';
+        const result = await PostForm(formValues, route);      
+
+        if (result.status === 200 || 201) {
+            redirect()
+            console.log("REGISTER DONE ==> reload login page ");
+        }
+        else if (result.status === !200 || 201) {
+            redirect()
+            alert("REGISTER FAILED Fail");
+            console.log("REGISTER FAILED ==> reload login page ");
+        }
+        //redirection
+        redirect()
     }
 
     //call de la fct à la soumission du form.
@@ -49,21 +66,15 @@ function SignIn() {
             return;
         }
 
-        isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
+        postCheckAndRedirect(inputValue)
 
-        //call API
-        const route = 'auth/LOGIN';
-        PostForm(inputValue, route);
-
-        //redirection
-        redirect()
+        // !isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
     }
+
     //! useEffect(() => {
     //!     // Si "readyToSend" est true, alors appelez PostToApi
     //!     readyToSend === false ? null : PostToApi(inputValue);
     //! }, [readyToSend]);
-
-
 
     return (
         <>
@@ -71,16 +82,16 @@ function SignIn() {
                 <form>
                     <label htmlFor="Login">Login :</label>
                     <input
-                        label="Login"
+                        label="loginName"
                         type="text"
-                        name="login"
+                        name="loginName"
                         className="input"
-                        value={inputValue.login}
-                        onChange={(e) => handleChange("login", e.target.value)}
+                        value={inputValue.loginName}
+                        onChange={(e) => handleChange("loginName", e.target.value)}
                     />
                     <label htmlFor="noPasswordm">Password :</label>
                     <input
-                        label="Password"
+                        label="password"
                         type="password"
                         name="password"
                         className="input"

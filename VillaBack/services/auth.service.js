@@ -1,14 +1,19 @@
 const userDto = require("../DTO/user.dto");
 const db = require("../models");
-//!↑↑↑ pourquoi pas : require('../model/index')???
 const jwt = require("jsonwebtoken");
+
+
 
 const authService = {
   insert: async (data) => {
-    //console.log(`db ===========================================================> `,db);
-    //!↑↑↑ comment db est il accessible???
-    const user = await db.user.create(data);
-    return new userDto(user);
+    console.log(` data dans service ===> ${JSON.stringify(data)}`);
+    try {
+      const user = await db.user.create(data);
+      console.log(`user = ===>${user}`);
+      return new userDto(user);
+    } catch (error) {
+      console.error('Erreur lors de la création de l\'utilisateur', error);
+    }
   },
 
   exist: async (loginName) => {
@@ -19,6 +24,7 @@ const authService = {
 
     return new userDto(user);
   },
+
   addJwt: async (jwt, id) => {
     // Vérification de l'existence de l'utilisateur
     const userFound = await db.user.findOne({
@@ -30,7 +36,7 @@ const authService = {
     return userFound;
   },
 
-  getJwt: async (id) => {
+  getUserByToken: async (id) => {
     const jwtExist = await db.user.findOne({
       where: { id },
     });

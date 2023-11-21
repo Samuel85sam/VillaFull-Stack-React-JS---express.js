@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes, ModelStatic } = require('sequelize');
+const { Sequelize, DataTypes, ModelStatic } = require('sequelize');
 
 /**
  * Fonction pour créer un model Character (donc table de db)
@@ -9,14 +9,14 @@ const {Sequelize, DataTypes, ModelStatic } = require('sequelize');
 
 module.exports = (sequelize) => {
     // Définition de l'object sequelize (db)
-    const Auth = sequelize.define('auth', {
+    const user = sequelize.define('user', {
         // L'id se crée automatiquement si non spécifié ici
         nom: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        
-        prenom:{
+
+        prenom: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        email: {
+        mail: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
@@ -36,22 +36,22 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        HashedPassword: {
+        hashedPassword: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
     }, {
         // Option de création propre à Sequelize (voir doc)
         createdAt: true,
-        tableName: 'users',
+        tableName: 'user',
         indexes: [
             {
                 // Création de contraintes
-                name: 'UK_auth__jwt',
-                fields: ['loginName'],
+                name: 'UK_user__loginName_mail',
+                fields: ['loginName', 'mail'],
                 unique: false,
             },
         ]
     })
-    return Auth;
+    return user;
 }

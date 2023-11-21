@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
-import { PostForm } from '../../api/CRUD.api';
 import { useNavigate } from 'react-router-dom';
+import { PostForm } from '../../api/CRUD.api';
+
 function SignUp() {
     // État local pour stocker les valeurs du formulaire
     const [inputValue, setInputValue] = useState({
@@ -8,13 +9,13 @@ function SignUp() {
         prenom: "prenomTest",
         adresse: "dans ton cul",
         tel: "0123456789",
-        email: "mail@test",
+        mail: "mail@test",
         loginName: "logNameTest",
         password: "passwordTest",
     });
 
-    // État local pour déterminer si les données sont prêtes à être envoyées
-    const [readyToSend, isReadyToSend] = useState(false);
+    //! // État local pour déterminer si les données sont prêtes à être envoyées
+    //! const [readyToSend, isReadyToSend] = useState(false);
 
     //gestion form.
     const handleChange = (name, value) => {
@@ -24,22 +25,28 @@ function SignUp() {
     //redirection after-POST
     const navigate = useNavigate();
     const redirect = async () => {
-        const result = await PostForm()
         try {
-            if (result === 200 || 201) {
-                navigate("");
-
-                window.location.reload();
-            }
+            navigate("");
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
     }
 
-    const postAndRedirect = () => {
-        //call API
+    const postStoreAndRedirect = async (inputValue) => {
+        const formValues = inputValue
         const route = 'auth/REGISTER';
-        PostForm(inputValue, route);
+        const result = await PostForm(formValues, route);
+        
+        if (result === 200 || 201) {
+            redirect()
+            console.log("FROM BACKEND ==> NEW USER STORED IN DATABASE ==> redirect to user index page ");
+        }
+        else if (result === !(200 || 201)) {
+            redirect()
+            alert("REGISTER FAILED Fail");
+            console.log("REGISTER FAILED ==> reload login page ");
+        }
 
         //redirection
         redirect()
@@ -79,14 +86,15 @@ function SignUp() {
             return;
         }
 
-        isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
+        postStoreAndRedirect(inputValue)
+
+        // !isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
     };
 
-        
-    useEffect(() => {
-        // Si "readyToSend" est true, alors call API ==> PostForm
-        readyToSend === false ? null : postAndRedirect();
-    }, [readyToSend]);
+    //! useEffect(() => {
+    //!     // Si "readyToSend" est true, alors call API ==> PostForm
+    //!     readyToSend === false ? null : postAndRedirect();
+    //! }, [readyToSend]);
 
     return (
         <div className="RegistrationDiv">
@@ -109,7 +117,7 @@ function SignUp() {
                     value={inputValue.prenom}
                     onChange={(e) => handleChange("prenom", e.target.value)}
                 />
-                  <label htmlFor="adresse">Adresse :</label>
+                <label htmlFor="adresse">Adresse :</label>
                 <input
                     label="adresse"
                     type="text"
@@ -127,14 +135,14 @@ function SignUp() {
                     value={inputValue.tel}
                     onChange={(e) => handleChange("tel", e.target.value)}
                 />
-                <label htmlFor="email">Email :</label>
+                <label htmlFor="mail">mail :</label>
                 <input
-                    label="Email"
+                    label="mail"
                     type="text"
-                    name="email"
+                    name="mail"
                     className="input"
-                    value={inputValue.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
+                    value={inputValue.mail}
+                    onChange={(e) => handleChange("mail", e.target.value)}
                 />
                 <label htmlFor="loginName">LoginName :</label>
                 <input
