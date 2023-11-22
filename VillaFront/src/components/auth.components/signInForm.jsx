@@ -26,13 +26,15 @@ function SignIn() {
     const navigate = useNavigate();
     const redirect = async () => {
         try {
-            navigate("");
+            navigate("userDashboard");
             console.log('====================> REDIRECT TO USER INDEX  PAGE');
-            window.location.reload();
+            //window.useNavigate()
         } catch (err) {
             console.error(err);
         }
     }
+
+   // const user = useStore(state => state.userInfos)
 
     const postCheckAndRedirect = async (inputValue) => {
         const formValues = inputValue
@@ -41,7 +43,7 @@ function SignIn() {
         console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
             redirect()
-            console.log("REGISTER DONE ==> reload login page ");
+            //console.log("REGISTER DONE ==> reload login page ");
         }
         else if (result.status === !200 || 201) {
             redirect()

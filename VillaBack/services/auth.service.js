@@ -51,8 +51,14 @@ const authService = {
 
     try {
       const decoded = jwt.verify(token, secret);
-      return true;
+      const userId = decoded.userId;
+      const user = await db.user.findOne({
+        where: {id:userId},
+      })
+
+      return new userDto(user);
     } catch (err) {
+      console.error(err)
       return false;
     }
   },

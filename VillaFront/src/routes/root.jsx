@@ -2,6 +2,7 @@ import { NavLink, useNavigation, Outlet } from "react-router-dom"
 
 export default function Root() {
     const navigation = useNavigation();
+    
     return (
         <>
 
@@ -9,7 +10,7 @@ export default function Root() {
                 
 
                 <nav>
-                <NavLink to="/index">Home</NavLink>
+                <NavLink to="/indexLandingPage">Home</NavLink>
                 <NavLink to="/auth">Login</NavLink>
                 <NavLink to="/reservation">Reservation</NavLink>
                 <NavLink to="/comments">Livre D'or</NavLink>
