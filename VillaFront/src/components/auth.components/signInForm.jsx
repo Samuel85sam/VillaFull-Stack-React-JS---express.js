@@ -37,7 +37,7 @@ function SignIn() {
     const postCheckAndRedirect = async (inputValue) => {
         const formValues = inputValue
         const route = 'auth/LOGIN';
-        const result = await PostForm(formValues, route);      
+        const result = await PostForm(formValues, route);
         console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
             redirect()

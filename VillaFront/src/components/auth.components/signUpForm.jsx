@@ -37,7 +37,7 @@ function SignUp() {
         const formValues = inputValue
         const route = 'auth/REGISTER';
         const result = await PostForm(formValues, route);
-        
+
         if (result === 200 || 201) {
             redirect()
             console.log("FROM BACKEND ==> NEW USER STORED IN DATABASE ==> redirect to user index page ");

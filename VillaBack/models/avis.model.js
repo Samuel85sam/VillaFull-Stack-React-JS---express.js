@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes, ModelStatic } = require('sequelize');
+const { Sequelize, DataTypes, ModelStatic } = require('sequelize');
 
 
 /**
@@ -11,7 +11,7 @@ const {Sequelize, DataTypes, ModelStatic } = require('sequelize');
 module.exports = (sequelize) => {
     // Définition de l'object sequelize (db)
     const Avis = sequelize.define('avis', {
-        
+
         // L'id se crée automatiquement si non spécifié ici
         //! client: {
         //!     type: DataTypes.STRING(50),
@@ -33,13 +33,13 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(50),//!INTEGER,
             allowNull: false,
         },
-        
+
         //! date: {
         //!     type: DataTypes.DATE(undefined),
         //!     allowNull: false,
         //! },
-            
-        
+
+
     }, {
         // Option de création propre à Sequelize (voir doc)
         createdAt: true,
@@ -48,12 +48,12 @@ module.exports = (sequelize) => {
             {
                 // Création de contraintes
                 name: 'UK_avis',
-                fields: ['firstName', 'lastName','comment'],
+                fields: ['firstName', 'lastName', 'comment'],
                 unique: false,
             },
         ]
     }
-    
+
     )
     return Avis;
 }
