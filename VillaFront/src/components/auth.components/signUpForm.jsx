@@ -10,8 +10,8 @@ function SignUp() {
         adresse: "dans ton cul",
         tel: "0123456789",
         mail: "mail@test",
-        loginName: "logNameTest",
-        password: "passwordTest",
+        loginName: "SamDem",
+        password: "SamDem",
     });
 
     //! // État local pour déterminer si les données sont prêtes à être envoyées

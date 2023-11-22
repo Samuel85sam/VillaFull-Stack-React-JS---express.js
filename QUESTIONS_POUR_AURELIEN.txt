@@ -4,6 +4,14 @@ BACK-------------------------------------------------
 
 avis controller l26 .location
 
+authService l26 ==>59
+
+où est stocké le JWT?
+dans la db???
+
+comment utiliser le authStore avec zustand?
+
+
 
 
 

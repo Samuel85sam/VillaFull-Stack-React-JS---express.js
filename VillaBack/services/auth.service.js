@@ -17,23 +17,25 @@ const authService = {
   },
 
   exist: async (loginName) => {
-    console.log(`login sended ===>${loginName}`);
     const user = await db.user.findOne({
       where: { loginName },
     });
 
     return new userDto(user);
   },
-
+//! -------------------------------------------------------------------------------------
   addJwt: async (jwt, id) => {
     // Vérification de l'existence de l'utilisateur
     const userFound = await db.user.findOne({
       where: { id },
     });
-    // S'il existe, on lui donne un jwt (s'il n'en a pas encore)
-    await userFound.update({ jwt });
 
-    return userFound;
+    // S'il existe, on lui donne un jwt (s'il n'en a pas encore)
+    const userUpdated = await userFound.update({ jwt });
+
+    console.log(`userFound updated ===>${JSON.stringify(userUpdated)}`);
+
+    return userUpdated;
   },
 
   getUserByToken: async (id) => {
@@ -54,7 +56,7 @@ const authService = {
       return false;
     }
   },
-
+//! ---------------------------------------------------------------------------------------
   // fetchAll: async () =>{
   //   const users = await db.user.
   // }

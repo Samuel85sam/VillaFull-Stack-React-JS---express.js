@@ -38,14 +38,14 @@ function SignIn() {
         const formValues = inputValue
         const route = 'auth/LOGIN';
         const result = await PostForm(formValues, route);      
-
+        console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
             redirect()
             console.log("REGISTER DONE ==> reload login page ");
         }
         else if (result.status === !200 || 201) {
             redirect()
-            alert("REGISTER FAILED Fail");
+            console.alert("REGISTER FAILED Fail");
             console.log("REGISTER FAILED ==> reload login page ");
         }
         //redirection

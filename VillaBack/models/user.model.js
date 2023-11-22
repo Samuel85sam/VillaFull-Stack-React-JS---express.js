@@ -10,7 +10,11 @@ const { Sequelize, DataTypes, ModelStatic } = require('sequelize');
 module.exports = (sequelize) => {
     // Définition de l'object sequelize (db)
     const user = sequelize.define('user', {
-        // L'id se crée automatiquement si non spécifié ici
+        // id: {
+        //     type: DataTypes.INTEGER(100),
+        //     allowNull: false,
+        //     primaryKey: true,
+        // },
         nom: {
             type: DataTypes.STRING(100),
             allowNull: false,

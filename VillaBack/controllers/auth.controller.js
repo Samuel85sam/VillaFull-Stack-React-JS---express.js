@@ -43,7 +43,7 @@ const authController = {
           .json(authInserted);
         console.log(`FROM BACKEND ==> NEW USER STORED IN DATABASE`);
       }
-      console.log('NO STORAGE');
+      
     } catch (err) {
       console.log(res.status.txt);
       console.log(res.status.txt);
@@ -51,40 +51,40 @@ const authController = {
 
       res.sendStatus(404);
     }
-
-
+    
+    
   },
-
-
+  
+  
   login: async (req, res) => {
-
+    
     try {
       const { loginName, password } = req.body;
-
+      
       // Vérification de l'existence de l'utilisateur via son login
       const user = await authService.exist(loginName);
-
-      if (!user) {
-
+       if (!user) {
+        
         // Si l'utilisateur n'existe pas, renvoi une réponse 401 (Unauthorized)
         console.log("FROM BACKEND ===> USER NOT FOUND");
         return res.status(401).json({ message: "USER NOT FOUND" });
       }
-
-
+      
+      
       // Vérification du password fourni par l'utilisateur avec le password hashé dans la DB
-      const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
-
+      const hashedPassword = user.hashedPassword
+       const passwordMatch = await bcrypt.compare(password, hashedPassword);
+      
       if (!passwordMatch) {
-
+        
         // Si les mots de passe ne correspondent pas, renvoi une réponse 401 (Unauthorized)
         prompt('The server refuses the attempt to brew coffee with a teapot.')
         console.log('The server refuses the attempt to brew coffee with a teapot.');
         return res.status(418)
-
+        
         //? return res.status(401).json({ message: "Mot de passe incorrect" });
       }
-
+      
       // Si les password correspondent, on va créer un token (jwt) pour l'utilisateur
       const payload = {
         userId: user.id,
@@ -96,11 +96,12 @@ const authController = {
       // Signer le token (jwt) avec le SECRET
       const secret = process.env.JWT_SECRET;
       const token = jwt.sign(payload, secret, options);
-
+      
       // Stocker le token (jwt) dans la DB
-      const clientJwt = await authService.addJwt(token, user.id);
+      const userId =user.id
+      const clientJwt = await authService.addJwt(token, userId);
       if (clientJwt) {
-
+        
         // Si l'insertion s'est correctement déroulée, on envoi les informations dans le header et au front en json
         res.setHeader("Authorization", `Bearer ${token}`);
         console.log("user identifié ===> pasword ok");
