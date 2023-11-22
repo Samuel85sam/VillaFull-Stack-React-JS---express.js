@@ -1,6 +1,7 @@
 BACK-------------------------------------------------
 
 
+1)
 
 avis controller l26 .location
 
@@ -13,7 +14,9 @@ comment utiliser le authStore avec zustand?
 
 utilise-t-on encore les guards?
 
+2)
 
+comment faire un select (by id?) en utilisant le hoover
 
 
 
@@ -31,7 +34,7 @@ utilise-t-on encore les guards?
 
 FRONT------------------------------------------------
 
-
+JE Ne COMPREND PAS LE USE EFFECT
 
 resaForm, signUpForm,signInForm et commentForm
 
