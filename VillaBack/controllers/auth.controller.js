@@ -114,6 +114,10 @@ const authController = {
 
   },
 
+  getUserById: async (res,req) => {
+    const user = await auth.service.getOneById(id)
+  }
+
 
 
 

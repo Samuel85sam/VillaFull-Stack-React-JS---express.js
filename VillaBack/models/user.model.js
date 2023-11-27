@@ -49,6 +49,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
+        JWT:{
+            type: DataTypes.STRING(350),
+            allowNull:true,
+        }
     }, {
         // Option de création propre à Sequelize (voir doc)
         createdAt: true,

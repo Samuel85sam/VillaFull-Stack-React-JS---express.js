@@ -12,6 +12,11 @@ authRouter.route('/REGISTER')
     .all((res, req) => {
         res.statusCode(405).send('Unavailable')
     });
+authRouter.route('/:id')
+    .post(authController.getUserById)
+    .all((res,req) =>{
+        res.statusCode(405).send('Unavalable')
+    })
 
 // authRouter.route('/users')
 // .post(authController.getAllUsers)

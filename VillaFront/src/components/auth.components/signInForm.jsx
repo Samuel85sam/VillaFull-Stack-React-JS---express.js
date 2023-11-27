@@ -1,12 +1,11 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../../store/authStore";
 import { PostForm } from "../../api/CRUD.api";
 
 
 
 function SignIn() {
-    const login = useAuthStore((state) => state.login)
+  //  const login = useAuthStore((state) => state.login)
 
     // État local pour stocker les valeurs des champs du formulaire
     const [inputValue, setInputValue] = useState({
@@ -24,9 +23,11 @@ function SignIn() {
 
     //redirection after-POST
     const navigate = useNavigate();
-    const redirect = async () => {
+    const redirect = function (id) {
+         
         try {
-            navigate("index");
+            //navigate(`/index/${id}`);
+            navigate("/index")
             console.log('====================> REDIRECT TO USER INDEX  PAGE');
             window.location.reload();
         } catch (err) {
@@ -38,16 +39,19 @@ function SignIn() {
         const formValues = inputValue
         const route = 'auth/LOGIN';
         const result = await PostForm(formValues, route);
+        //const userId = result.data.user.id;
         console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
             console.log(result.status);
-            redirect()
-            console.log("REGISTER DONE ==> reload login page ");
+          //  console.log(`User Id in redirect ==>${userId}`);
+           // redirect(userId)
+           redirect()
+            console.log(`LOGIN DONE ==> reload login page`);
         }
         else if (result.status === !200 || 201) {
             redirect()
-            console.alert("REGISTER FAILED Fail");
-            console.log("REGISTER FAILED ==> reload login page ");
+            alert("LOGIN FAILED ");
+            console.log("LOGIN FAILED ==> reload login page ");
         }
         //redirection
         redirect()

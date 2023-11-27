@@ -38,12 +38,19 @@ const authService = {
     return userUpdated;
   },
 
-  getUserByToken: async (id) => {
-    const jwtExist = await db.user.findOne({
-      where: { id },
-    });
+  // getUserByToken: async (id) => {
+  //   const jwtExist = await db.user.findOne({
+  //     where: { id },
+  //   });
 
-    return jwtExist;
+  //   return jwtExist;
+  // },
+
+  getUserById: async (id) => {
+    const user = await db.user.findOne({
+      where: {id},
+    });
+    return user
   },
 
   verifyJwt: async (token) => {

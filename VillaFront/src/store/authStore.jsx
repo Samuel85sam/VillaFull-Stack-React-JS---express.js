@@ -1,15 +1,23 @@
 import { create } from "zustand";
-import { PostForm } from "../api/CRUD.api";
 
-const useAuthStore = create((set, route) => ({
-  JWT: {},
-  login: async (formValues) => {
-    const url = route
-    const result = await PostForm(formValues, url);
-    set({ JWT: await result.data.token })
-    console.log(`READY in STORAGE ====>${JSON.stringify(result)}`);
-    return result
-  },
+const initialState = {
+  id: '',
+  nom:'',
+  prenom:'',
+  adresse:'',
+  tel:'',
+  email:'',
+  loginName:'',
+  hashedPassword:'',
+  JWT:'',
+}
+
+
+export const useAuthStore = create((set) => ({
+ userData: initialState,
+ addUserData: (newUserData) => set((state) => ({
+                                                  ...state,
+                                                  userData: newUserData,
+                                                  }))
 }))
 
-export default useAuthStore

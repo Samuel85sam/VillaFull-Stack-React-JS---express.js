@@ -1,6 +1,7 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { PostForm } from '../../api/CRUD.api';
+import { useStore } from "zustand";
 
 function SignUp() {
     // État local pour stocker les valeurs du formulaire
@@ -38,19 +39,38 @@ function SignUp() {
         const route = 'auth/REGISTER';
         const result = await PostForm(formValues, route);
 
-        if (result === 200 || 201) {
+        if (result.status === 200 || 201) {
             redirect()
             console.log("FROM BACKEND ==> NEW USER STORED IN DATABASE ==> redirect to user index page ");
         }
-        else if (result === !(200 || 201)) {
+        else if (result.status === !(200 || 201)) {
             redirect()
             alert("REGISTER FAILED Fail");
             console.log("REGISTER FAILED ==> reload login page ");
         }
-
+        
         //redirection
         redirect()
-    }
+
+        return result
+
+    };
+
+    
+    const 
+    addUserInfos = useStore((state) => state.addUserData);
+
+    const loadUserInfos = async () => {
+        try {
+            const result = await postStoreAndRedirect();
+            if(result) {
+                addUserInfos(result)
+                console.log(`result dans loadUserInfo ==>${result}`)
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des infos utilisateur:', error);
+        }
+    };
 
     //call de la fct à la soumission du form. 
     const handleSubmit = (e) => {
@@ -87,6 +107,13 @@ function SignUp() {
         }
 
         postStoreAndRedirect(inputValue)
+        
+        //loading du store (zustand) 
+        loadUserInfos();
+
+
+
+
 
         // !isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
     };
