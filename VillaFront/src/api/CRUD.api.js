@@ -60,7 +60,7 @@ export const getOne = async (id, route) => {
     try {
         console.log(`Call.api ==> ${route}`)
         const response = await axios.get(`http://localhost:3002/api/${route}${id}`)
-
+        console.log('HHEIUZHGIUZERHEHYIUZHEIZHEIUZHEIUZHEIUZHEIUZHEIUZHEI :', response);
         if (response.status == 200 || 201) {
             console.log(`call.api.GetOne response.status  ===> ${response.status}`);
             return response;
@@ -94,6 +94,20 @@ export const getAll = async (route) => {
         console.log("getAll call to API FAILED!!!===>", err);
     }
 }
+
+// export const fetchUserInfos = async () => {
+//     const data = {login: 'pseudo', password: 'password'}
+//     try {
+//         const response = await axios.post('http://localhost:3002/api/auth/login', data)
+
+//         if (response) {
+//             return response.data;
+//         }
+//     } catch (e) {
+//         console.error(e)
+//         throw e;
+//     }
+// }
 
 
 

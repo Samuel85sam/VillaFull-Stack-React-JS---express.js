@@ -1,3 +1,5 @@
+import { useAuthStore } from "../store/authStore"
+
 export default function Index(){
 
     const adminOrNot = function () {
@@ -5,6 +7,10 @@ export default function Index(){
         //retourne true si token ok
         return admin
     }
+
+    const user = useAuthStore((state) => state.userData)
+
+    console.log(user ? user : null);
 
     return (
         <>

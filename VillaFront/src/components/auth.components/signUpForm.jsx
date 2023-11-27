@@ -52,30 +52,19 @@ function SignUp() {
         //redirection
         redirect()
 
-        return result
 
     };
 
     
-    const 
-    addUserInfos = useStore((state) => state.addUserData);
-
-    const loadUserInfos = async () => {
-        try {
-            const result = await postStoreAndRedirect();
-            if(result) {
-                addUserInfos(result)
-                console.log(`result dans loadUserInfo ==>${result}`)
-            }
-        } catch (error) {
-            console.error('Erreur lors de la récupération des infos utilisateur:', error);
-        }
-    };
-
+    
+   
+    
     //call de la fct à la soumission du form. 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        
+        
         //1st Validations  
         if (inputValue.nom === '') {
             alert('veuillez saisir un nom.');
@@ -108,23 +97,23 @@ function SignUp() {
 
         postStoreAndRedirect(inputValue)
         
-        //loading du store (zustand) 
-        loadUserInfos();
+      
+        
 
-
-
-
-
+         
+        
+        
+        
         // !isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
     };
-
+    
     //! useEffect(() => {
-    //!     // Si "readyToSend" est true, alors call API ==> PostForm
-    //!     readyToSend === false ? null : postAndRedirect();
-    //! }, [readyToSend]);
+        //!     // Si "readyToSend" est true, alors call API ==> PostForm
+        //!     readyToSend === false ? null : postAndRedirect();
+        //! }, [readyToSend]);
 
-    return (
-        <div className="RegistrationDiv">
+        return (
+            <div className="RegistrationDiv">
             <form>
                 <label htmlFor="nom">Nom :</label>
                 <input

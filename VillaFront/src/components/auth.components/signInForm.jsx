@@ -1,10 +1,11 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PostForm } from "../../api/CRUD.api";
+import { PostForm, getOne } from "../../api/CRUD.api";
+import { useAuthStore } from "../../store/authStore";
 
 
 
-function SignIn() {
+const SignIn = () => {
   //  const login = useAuthStore((state) => state.login)
 
     // État local pour stocker les valeurs des champs du formulaire
@@ -28,23 +29,40 @@ function SignIn() {
         try {
             //navigate(`/index/${id}`);
             navigate("/index")
-            console.log('====================> REDIRECT TO USER INDEX  PAGE');
+            // console.log('====================> REDIRECT TO USER INDEX  PAGE');
             window.location.reload();
         } catch (err) {
             console.error(err);
         }
     }
+    const addUserInfos = useAuthStore((state) => state.addUserData);
+
+    const loadUserInfos = async () => {
+        try {
+            const result = await getOne();
+            console.log(result)
+            const userInfos = result.data
+            if(userInfos) {
+                addUserInfos(userInfos)
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des infos utilisateur:', error);
+        }
+    };
 
     const postCheckAndRedirect = async (inputValue) => {
         const formValues = inputValue
         const route = 'auth/LOGIN';
         const result = await PostForm(formValues, route);
+        
+        
         //const userId = result.data.user.id;
         console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
             console.log(result.status);
           //  console.log(`User Id in redirect ==>${userId}`);
-           // redirect(userId)
+           // redirect(userId)//loading du store (zustand) 
+          loadUserInfos();
            redirect()
             console.log(`LOGIN DONE ==> reload login page`);
         }
@@ -55,6 +73,9 @@ function SignIn() {
         }
         //redirection
         redirect()
+
+          //loading du store (zustand) 
+          loadUserInfos();
     }
 
     //call de la fct à la soumission du form.
