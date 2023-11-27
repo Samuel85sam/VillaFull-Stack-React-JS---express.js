@@ -8,7 +8,7 @@ export const PostForm = async (data, route) => {
     try {
         console.log(`Call.api ==> ${route}`)
         const response = await axios.post(`http://localhost:3002/api/${route}`, data)
-        console.log(`PostForm return = response ==> ${JSON.stringify(result.data)}`);
+        console.log(`PostForm return = response ==> ${JSON.stringify(response.data)}`);
         return response;
 
     } catch (err) {

@@ -7,11 +7,11 @@ function SignUp() {
     const [inputValue, setInputValue] = useState({
         nom: "nomTest",
         prenom: "prenomTest",
-        adresse: "dans ton cul",
+        adresse: "adresse test",
         tel: "0123456789",
         mail: "mail@test",
-        loginName: "SamDem",
-        password: "SamDem",
+        loginName: "login_test",
+        password: "login_test",
     });
 
     //! // État local pour déterminer si les données sont prêtes à être envoyées

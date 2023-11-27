@@ -10,8 +10,8 @@ function SignIn() {
 
     // État local pour stocker les valeurs des champs du formulaire
     const [inputValue, setInputValue] = useState({
-        loginName: "SamDem",
-        password: "SamDem",
+        loginName: "login_test",
+        password: "login_test",
     });
 
     //! // État local pour déterminer si les données sont prêtes à être envoyées
@@ -26,7 +26,7 @@ function SignIn() {
     const navigate = useNavigate();
     const redirect = async () => {
         try {
-            navigate("");
+            navigate("index");
             console.log('====================> REDIRECT TO USER INDEX  PAGE');
             window.location.reload();
         } catch (err) {
@@ -40,6 +40,7 @@ function SignIn() {
         const result = await PostForm(formValues, route);
         console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
+            console.log(result.status);
             redirect()
             console.log("REGISTER DONE ==> reload login page ");
         }

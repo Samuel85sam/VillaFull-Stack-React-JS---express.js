@@ -15,6 +15,11 @@ module.exports = (sequelize) => {
         //     allowNull: false,
         //     primaryKey: true,
         // },
+        admin: {
+            type: DataTypes.BOOLEAN(false),
+            allowNull: true,
+        },
+
         nom: {
             type: DataTypes.STRING(100),
             allowNull: false,
