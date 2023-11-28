@@ -116,7 +116,8 @@ const authController = {
 
   getUserById: async (res,req) => {
     const user = await auth.service.getOneById(id)
-  }
+    //TODO Finir la fonction (renvoyer infos aux front (res.json({tes datas}))) et ça devrait aller :)
+    }
 
 
 
