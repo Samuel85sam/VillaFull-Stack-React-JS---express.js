@@ -78,7 +78,7 @@ const authController = {
       if (!passwordMatch) {
 
         // Si les mots de passe ne correspondent pas, renvoi une réponse 401 (Unauthorized)
-        prompt('The server refuses the attempt to brew coffee with a teapot.')
+        alert('The server refuses the attempt to brew coffee with a teapot.')
         console.log('The server refuses the attempt to brew coffee with a teapot.');
         return res.status(418)
 
@@ -88,7 +88,7 @@ const authController = {
       // Si les password correspondent, on va créer un token (jwt) pour l'utilisateur
       const payload = {
         userId: user.id,
-        login: user.login,
+        login: user.loginName,
       };
       const options = {
         expiresIn: "2d",
@@ -101,7 +101,7 @@ const authController = {
       const userId = user.id
       const clientJwt = await authService.addJwt(token, userId);
       if (clientJwt) {
-
+        console.log(`token créé =======> ${token}`);
         // Si l'insertion s'est correctement déroulée, on envoi les informations dans le header et au front en json
         res.setHeader("Authorization", `Bearer ${token}`);
         console.log("user identifié ===> pasword ok");
@@ -114,10 +114,29 @@ const authController = {
 
   },
 
-  getUserById: async (res,req) => {
-    const user = await auth.service.getOneById(id)
-    //TODO Finir la fonction (renvoyer infos aux front (res.json({tes datas}))) et ça devrait aller :)
+  getUserById: async (req,res) => {
+    console.log(`req.params ==============================>${JSON.stringify(req.params)}`);
+    
+try {
+
+    const { id } = req.params;
+    console.log(`===================================>id: ${id}`);
+    const user = await authService.getUserById(id);
+    if (user){
+      return res.json(JSON.stringify(user)).status(200)
     }
+   
+    
+} catch (error) {
+  console.log(`getUserById FAIL ====> ${error}`);
+}
+    
+    },
+
+    getUserByLogin: async (res,req) => {
+      const user = await auth.service.exist(loginName)
+      
+      }
 
 
 
@@ -125,6 +144,4 @@ const authController = {
 };
 
 module.exports = authController;
-
-
 

@@ -6,10 +6,10 @@ const jwt = require("jsonwebtoken");
 
 const authService = {
   insert: async (data) => {
-    console.log(` data dans service ===> ${JSON.stringify(data)}`);
+    //console.log(` data dans service ===> ${JSON.stringify(data)}`);
     try {
       const user = await db.user.create(data);
-      console.log(`user = ===>${user}`);
+     // console.log(`user = ===>${user}`);
       return new userDto(user);
     } catch (error) {
       console.error('Erreur lors de la création de l\'utilisateur', error);
@@ -23,7 +23,7 @@ const authService = {
 
     return new userDto(user);
   },
-  //! -------------------------------------------------------------------------------------
+  
   addJwt: async (jwt, id) => {
     // Vérification de l'existence de l'utilisateur
     const userFound = await db.user.findOne({

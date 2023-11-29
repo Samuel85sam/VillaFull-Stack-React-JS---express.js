@@ -1,12 +1,11 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PostForm, getOne } from "../../api/CRUD.api";
+import { PostForm, getOneById } from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
 
 
 
 const SignIn = () => {
-  //  const login = useAuthStore((state) => state.login)
 
     // État local pour stocker les valeurs des champs du formulaire
     const [inputValue, setInputValue] = useState({
@@ -25,7 +24,7 @@ const SignIn = () => {
     //redirection after-POST
     const navigate = useNavigate();
     const redirect = function (id) {
-         
+
         try {
             //navigate(`/index/${id}`);
             navigate("/index")
@@ -36,16 +35,22 @@ const SignIn = () => {
         }
     }
     const addUserInfos = useAuthStore((state) => state.addUserData);
-
-    const loadUserInfos = async () => {
+    const user = useAuthStore((state) => state.userData)
+    const loadUserInfos = async (userId) => {
         try {
-            const result = await getOne();
-            console.log(result)
-            const userInfos = result.data
-            if(userInfos) {
+            const route = 'auth/GETONEbyID/';
+            const id = userId;
+            console.log(`ID =========>${id}`);
+           const response = await getOneById(id, route);
+           console.log(`RESPONSE===================>${response}`);
+           const userInfos = response.data
+           
+            if (response.status === 200) {
                 addUserInfos(userInfos)
+                console.log(`OKOKOKOKOK  !!!!!!!  addUserInfos() ====> ${userInfos}`);
             }
         } catch (error) {
+            
             console.error('Erreur lors de la récupération des infos utilisateur:', error);
         }
     };
@@ -54,28 +59,16 @@ const SignIn = () => {
         const formValues = inputValue
         const route = 'auth/LOGIN';
         const result = await PostForm(formValues, route);
+        const userId = result.data.user.id;
         
-        
-        //const userId = result.data.user.id;
-        console.log(`result PostForm ===>${JSON.stringify(result)}`);
         if (result.status === 200 || 201) {
-            console.log(result.status);
-          //  console.log(`User Id in redirect ==>${userId}`);
-           // redirect(userId)//loading du store (zustand) 
-          loadUserInfos();
-           redirect()
-            console.log(`LOGIN DONE ==> reload login page`);
+            loadUserInfos(userId);
         }
         else if (result.status === !200 || 201) {
             redirect()
             alert("LOGIN FAILED ");
             console.log("LOGIN FAILED ==> reload login page ");
         }
-        //redirection
-        redirect()
-
-          //loading du store (zustand) 
-          loadUserInfos();
     }
 
     //call de la fct à la soumission du form.
@@ -101,6 +94,12 @@ const SignIn = () => {
     //!     // Si "readyToSend" est true, alors appelez PostToApi
     //!     readyToSend === false ? null : PostToApi(inputValue);
     //! }, [readyToSend]);
+
+    useEffect(() => { 
+        if (user) {
+            console.log(user);
+        }
+    }, [user])
 
     return (
         <>

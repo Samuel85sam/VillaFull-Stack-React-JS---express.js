@@ -1,15 +1,16 @@
 import { create } from "zustand";
 
 const initialState = {
-  id: '',
-  nom:'',
-  prenom:'',
-  adresse:'',
-  tel:'',
-  email:'',
-  loginName:'',
-  hashedPassword:'',
-  JWT:'',
+  id: null,
+  admin:null,
+  nom:null,
+  prenom:null,
+  adresse:null,
+  tel:null,
+  mail:null,
+  loginName:null,
+  hashedPassword:null,
+  JWT:null,
 }
 
 

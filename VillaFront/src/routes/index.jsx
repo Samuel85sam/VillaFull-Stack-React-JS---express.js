@@ -10,7 +10,7 @@ export default function Index(){
 
     const user = useAuthStore((state) => state.userData)
 
-    console.log(user ? user : null);
+    console.log(user ? user.id : null);
 
     return (
         <>
