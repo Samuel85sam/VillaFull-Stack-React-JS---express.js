@@ -34,8 +34,9 @@ const SignIn = () => {
             console.error(err);
         }
     }
-    const addUserInfos = useAuthStore((state) => state.addUserData);
-    const user = useAuthStore((state) => state.userData)
+    //*verif storage ok ↓↓↓*/
+    // const addUserInfos = useAuthStore((state) => state.addUserData);
+    // const user = useAuthStore((state) => state.userData)
     const loadUserInfos = async (userId) => {
         try {
             const route = 'auth/GETONEbyID/';
@@ -93,12 +94,12 @@ const SignIn = () => {
     //!     // Si "readyToSend" est true, alors appelez PostToApi
     //!     readyToSend === false ? null : PostToApi(inputValue);
     //! }, [readyToSend]);
-
-    useEffect(() => {
-        if (user) {
-            console.log(`user dans storage ===> ${user}`);
-        }
-    }, [user])
+//*verif storage ok ↓↓↓*/
+    //useEffect(() => {
+    //     if (user) {
+    //         console.log(`user dans storage ===> ${user}`);
+    //     }
+    // }, [user])
 
     return (
         <>

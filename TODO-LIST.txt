@@ -1,0 +1,26 @@
+• JWT NULL dans DATABASE (indispensable de les stocker dans la DB?)
+• GUARDS
+• bouton DELETE sur Comments
+• DashBoard User >< Admin  
+• Route "Utilisateurs" visible que par le profil Admin
+• Afficher tous les utilisateurs avec un bouton "DELETE" + bouton EDIT
+• POST reservation
+• Route "Réservations" (Admin only) avec liste resa + bouton DELETE + bouton EDIT
+• Photos??? importation/stockage/edit
+• CAROUSEL ??? UI?? 
+• Calendrier??? une bonne UI? 
+• Design général
+
+
+----------------------------------------------Fin LABO---------------------------------------------------------
+
+• TESTS unitaires
+• messages d'erreurs utilisateurs (mauvais mot de passe/ login déjà utilisé / ceci n'est pas une adresse mail ...)
+
+
+
+
+
+
+
+

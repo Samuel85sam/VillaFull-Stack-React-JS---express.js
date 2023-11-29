@@ -10,6 +10,8 @@ authService l26 ==>59
 où est stocké le JWT?
 ...dans la db???
 
+authService ligne 80
+
 comment utiliser le authStore avec zustand?
 
 utilise-t-on encore les guards?

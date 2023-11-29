@@ -6,7 +6,6 @@ authRouter.route('/LOGIN')
     .all((res, req) => {
         res.statusCode(405).send('Login Unavalable')
     });
-
 authRouter.route('/REGISTER')
     .post(authController.register)
     .all((res, req) => {
