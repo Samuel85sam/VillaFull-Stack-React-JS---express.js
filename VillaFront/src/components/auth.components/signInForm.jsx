@@ -40,17 +40,16 @@ const SignIn = () => {
         try {
             const route = 'auth/GETONEbyID/';
             const id = userId;
-            console.log(`ID =========>${id}`);
-           const response = await getOneById(id, route);
-           console.log(`RESPONSE===================>${response}`);
-           const userInfos = response.data
-           
+            const response = await getOneById(id, route);
+            console.log(`RESPONSE===================>${JSON.stringify(response)}`);
+            const userInfos = response.data
+
             if (response.status === 200) {
                 addUserInfos(userInfos)
                 console.log(`OKOKOKOKOK  !!!!!!!  addUserInfos() ====> ${userInfos}`);
             }
         } catch (error) {
-            
+
             console.error('Erreur lors de la récupération des infos utilisateur:', error);
         }
     };
@@ -60,7 +59,7 @@ const SignIn = () => {
         const route = 'auth/LOGIN';
         const result = await PostForm(formValues, route);
         const userId = result.data.user.id;
-        
+
         if (result.status === 200 || 201) {
             loadUserInfos(userId);
         }
@@ -95,9 +94,9 @@ const SignIn = () => {
     //!     readyToSend === false ? null : PostToApi(inputValue);
     //! }, [readyToSend]);
 
-    useEffect(() => { 
+    useEffect(() => {
         if (user) {
-            console.log(user);
+            console.log(`user dans storage ===> ${user}`);
         }
     }, [user])
 

@@ -6,10 +6,8 @@ import axios from "axios";
 
 export const PostForm = async (data, route) => {
     try {
-        console.log(`Call.api ==> ${route}`)
         const response = await axios.post(`http://localhost:3002/api/${route}`, data)
-        console.log(`postform ==>http://localhost:3002/api/${route}/ ${data}`);
-        console.log(`PostForm return = response ==> ${JSON.stringify(response.data)}`);
+        console.log(`PostForm return = response ==> ${JSON.stringify(response)}=========================>ON A DEJA TOUT CE QU4IL FAUT, NORMALEMENT PAS BESOIN DE DEUXIEME CALL↓↓↓`);
         return response;
 
     } catch (err) {
@@ -21,11 +19,9 @@ export const PostForm = async (data, route) => {
 
 export const EditForm = async (data, route) => {
     try {
-        console.log(`Call.api ==> ${route}`)
         const response = await axios.put(`http://localhost:3002/api/${route}`, data)
 
         if (response.status == 200 || 201) {
-            console.log(`call.api.EDIT response.status  ===> ${response.status}`);
             return response;
         } else {
             console.log(`call.api.EDIT response.status  ===> ${response.status}`);
@@ -60,15 +56,13 @@ export const DeleteForm = async (data, route) => {
 export const getOneById = async (id, route) => {
 
     try {
-       
+
         const response = await axios.get(`http://localhost:3002/api/${route}${id}`)
-       
-        console.log(`call CRUD getOne id:${id} response:${response}`);
+
         if (response.status == 200 || 201) {
-            console.log(`call.api.GetOne response.status  ===> ${response.status}`);
             return response;
         } else {
-            console.log(`call.api.GetOneById response.status  ===> ${response.status}`);
+            console.log(`!!!--- call.api.GetOneById response.status  ===> ${response.status}---!!!`);
 
             return response;
         }
@@ -80,15 +74,13 @@ export const getOneById = async (id, route) => {
 
 export const getAll = async (route) => {
     try {
-        console.log(`try Call.api ==> ${route}`)
+
         const response = await axios.get(`http://localhost:3002/api/${route}`)
 
         if (response.status == 200 || 201) {
-            console.log(`response=====>${response.statusText}`);
-            // console.log(`call.api.GetAll response status ===> ${response.status}`);
             return response;
         } else {
-            console.log(`call.api.GetAll response status ===> ${response.statusText}`);
+            console.log(`!!!--- call.api.GetAll response status ===> ${response.statusText} ---!!!`);
 
             return response;
         }
@@ -98,19 +90,6 @@ export const getAll = async (route) => {
     }
 }
 
-// export const fetchUserInfos = async () => {
-//     const data = {login: 'pseudo', password: 'password'}
-//     try {
-//         const response = await axios.post('http://localhost:3002/api/auth/login', data)
-
-//         if (response) {
-//             return response.data;
-//         }
-//     } catch (e) {
-//         console.error(e)
-//         throw e;
-//     }
-// }
 
 
 
