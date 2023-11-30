@@ -43,9 +43,10 @@ const authController = {
       };
       const token = tokenGeneratorService.CreateAndStoreJWT(user)
       if (token) {
+        res.setHeader("Authorization", `Bearer ${token}`);
         return res.status(200).json({ token, user });
       } else {
-        console.log(`TOKEN=========> ${token}`);
+        console.log(`TOKEN=========> ${JSON.stringify(token)}`);
         console.error(`No User For TokenGeneratorService===> user===> ${JSON.stringify(user)}`)
       }
     } catch (err) {

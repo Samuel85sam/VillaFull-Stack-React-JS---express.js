@@ -5,12 +5,7 @@ BACK-------------------------------------------------
 
 
 
-
-authService ligne 80
-
-comment utiliser le authStore avec zustand?
-
-utilise-t-on encore les guards?
+root ligne 21 useEffect fait tt bugger
 
 2)
 

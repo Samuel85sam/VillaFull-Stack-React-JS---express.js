@@ -27,12 +27,12 @@ const tokenGeneratorService = {
             const userId = user.id
             if (token) {
                 authService.addJwt(token, userId);
-                res.setHeader("Authorization", `Bearer ${token}`);
+                console.log(`tokenGenerator ====> token: ${JSON.stringify(token)}`);
                 return token
             } else { console.log('problème à la création du token!!!!!!!!!!!!!!!!!!!!!!!!!!!'); }
         }
         catch (error) {
-            console.error(`TokenGenerato ERROR ===> ${error}`);
+            console.error(`TokenGenerator ERROR ===> ${error}`);
         };
     }
 

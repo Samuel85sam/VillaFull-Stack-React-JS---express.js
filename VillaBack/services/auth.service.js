@@ -44,7 +44,6 @@ const authService = {
     if (userFound) {
       db.user.update({ JWT: token }, { where: { id } });
       console.log(`JWT UPDATED IN DATABASE !!!!!!!`);
-
     } else {
       console.log('user not found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     }

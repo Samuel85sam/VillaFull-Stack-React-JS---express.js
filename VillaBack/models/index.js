@@ -11,10 +11,10 @@ if (process.env.NODE_ENV === "test") {
 } else {
   sequelize = new Sequelize({
     dialect: "mssql",
-    database: "VillaKollo",
+    database: "Villa",
     // sur la VDI c'est :VillaKollo
     // sur le laptop c'est :Villa
-    username: "VillaKolloUser",
+    username: "kolloAdmin",
     // sur la VDI c'est : VillaKolloUser
     // sur le laptop c'est : KolloAdmin
     password: process.env.DB_PASSWORD,

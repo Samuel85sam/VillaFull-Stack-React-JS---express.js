@@ -25,8 +25,11 @@ const SignIn = () => {
         }
     }
     const addUserInfos = useAuthStore((state) => state.addUserData);
+    //*----------------------------------------------------
     //*verif storage ok ↓↓↓*/
-    // const user = useAuthStore((state) => state.userData)
+      const user = useAuthStore((state) => state.userData)
+    //*----------------------------------------------------
+    
     const loadUserInfos = async (userId) => {
         try {
             const route = 'auth/GETONEbyID/';
@@ -76,13 +79,18 @@ const SignIn = () => {
     //!     // Si "readyToSend" est true, alors appelez PostToApi
     //!     readyToSend === false ? null : PostToApi(inputValue);
     //! }, [readyToSend]);
+    //*----------------------------------------------------
     //*verif storage ok ↓↓↓*/
-    //useEffect(() => {
-    //     if (user) {
-    //         console.log(`user dans storage ===> ${user}`);
-    //     }
-    // }, [user])
-
+    useEffect(() => {
+        const JWT = user.JWT;
+        if (user) {
+            console.log(`user dans storage ===> ${user}`);
+            console.log(`user JWT====> ${JWT}`);
+            console.log(`user JWT====> ${JSON.stringify(JWT)}`);
+        }
+    }, [user])
+    //*----------------------------------------------------
+    
     return (
         <>
             <div className="LoginDiv">
