@@ -3,12 +3,8 @@ BACK-------------------------------------------------
 
 1)
 
-avis controller l26 .location
 
-authService l26 ==>59
 
-où est stocké le JWT?
-...dans la db???
 
 authService ligne 80
 
@@ -36,13 +32,3 @@ comment faire un select (by id?) en utilisant le hoover
 
 FRONT------------------------------------------------
 
-JE Ne COMPREND PAS LE USE EFFECT
-
-resaForm, signUpForm,signInForm et commentForm
-
-//! useEffect(() => {
-//!   // Si "readyToSend" est true, alors appeler PostToApi
-//!   readyToSend === false ? null : postLogin(inputValue);
-//!   console.log("envoi inputValue envoyée à postToApi ↓↓↓");
-//!   console.log(inputValue);
-//! }, [readyToSend]);

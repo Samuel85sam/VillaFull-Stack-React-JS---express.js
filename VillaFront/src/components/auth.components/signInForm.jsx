@@ -6,51 +6,37 @@ import { useAuthStore } from "../../store/authStore";
 
 
 const SignIn = () => {
-
-    // État local pour stocker les valeurs des champs du formulaire
     const [inputValue, setInputValue] = useState({
         loginName: "login_test",
         password: "login_test",
     });
-
     //! // État local pour déterminer si les données sont prêtes à être envoyées
     // !const [readyToSend, isReadyToSend] = useState(false);
-
-    //gestion form.
     const handleChange = (name, value) => {
         setInputValue((prevState) => ({ ...prevState, [name]: value }));
     };
-
-    //redirection after-POST
     const navigate = useNavigate();
     const redirect = function (id) {
-
         try {
-            //navigate(`/index/${id}`);
             navigate("/index")
-            // console.log('====================> REDIRECT TO USER INDEX  PAGE');
             window.location.reload();
         } catch (err) {
             console.error(err);
         }
     }
+    const addUserInfos = useAuthStore((state) => state.addUserData);
     //*verif storage ok ↓↓↓*/
-    // const addUserInfos = useAuthStore((state) => state.addUserData);
     // const user = useAuthStore((state) => state.userData)
     const loadUserInfos = async (userId) => {
         try {
             const route = 'auth/GETONEbyID/';
             const id = userId;
             const response = await getOneById(id, route);
-            console.log(`RESPONSE===================>${JSON.stringify(response)}`);
             const userInfos = response.data
-
             if (response.status === 200) {
                 addUserInfos(userInfos)
-                console.log(`OKOKOKOKOK  !!!!!!!  addUserInfos() ====> ${userInfos}`);
             }
         } catch (error) {
-
             console.error('Erreur lors de la récupération des infos utilisateur:', error);
         }
     };
@@ -60,7 +46,6 @@ const SignIn = () => {
         const route = 'auth/LOGIN';
         const result = await PostForm(formValues, route);
         const userId = result.data.user.id;
-
         if (result.status === 200 || 201) {
             loadUserInfos(userId);
         }
@@ -71,11 +56,8 @@ const SignIn = () => {
         }
     }
 
-    //call de la fct à la soumission du form.
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        //1st Validation 
         if (inputValue.loginName === "") {
             alert("veuillez saisir un nom.");
             return;
@@ -94,7 +76,7 @@ const SignIn = () => {
     //!     // Si "readyToSend" est true, alors appelez PostToApi
     //!     readyToSend === false ? null : PostToApi(inputValue);
     //! }, [readyToSend]);
-//*verif storage ok ↓↓↓*/
+    //*verif storage ok ↓↓↓*/
     //useEffect(() => {
     //     if (user) {
     //         console.log(`user dans storage ===> ${user}`);

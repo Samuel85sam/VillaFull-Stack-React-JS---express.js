@@ -1,4 +1,5 @@
-• JWT NULL dans DATABASE (indispensable de les stocker dans la DB?)
+
+
 • GUARDS
 • bouton DELETE sur Comments
 • DashBoard User >< Admin  
