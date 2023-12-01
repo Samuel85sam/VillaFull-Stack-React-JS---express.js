@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PostForm, getOneById } from "../../api/CRUD.api";
+import { PostForm, getOneById} from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
 
 
@@ -16,9 +16,9 @@ const SignIn = () => {
         setInputValue((prevState) => ({ ...prevState, [name]: value }));
     };
     const navigate = useNavigate();
-    const redirect = function (id) {
+    const redirect = function (route) {
         try {
-            navigate("/index")
+            navigate(route)
             window.location.reload();
         } catch (err) {
             console.error(err);
@@ -27,7 +27,7 @@ const SignIn = () => {
     const addUserInfos = useAuthStore((state) => state.addUserData);
     //*----------------------------------------------------
     //*verif storage ok ↓↓↓*/
-      const user = useAuthStore((state) => state.userData)
+    const useUserInfos = useAuthStore((state) => state.userData)
     //*----------------------------------------------------
     
     const loadUserInfos = async (userId) => {
@@ -35,7 +35,8 @@ const SignIn = () => {
             const route = 'auth/GETONEbyID/';
             const id = userId;
             const response = await getOneById(id, route);
-            const userInfos = response.data
+            const userInfos = response.data 
+            console.log(`from CRUD ====>${JSON.stringify(useUserInfos)}`);
             if (response.status === 200) {
                 addUserInfos(userInfos)
             }
@@ -53,7 +54,7 @@ const SignIn = () => {
             loadUserInfos(userId);
         }
         else if (result.status === !200 || 201) {
-            redirect()
+            redirect('index')
             alert("LOGIN FAILED ");
             console.log("LOGIN FAILED ==> reload login page ");
         }
@@ -81,14 +82,13 @@ const SignIn = () => {
     //! }, [readyToSend]);
     //*----------------------------------------------------
     //*verif storage ok ↓↓↓*/
+    // 
     useEffect(() => {
-        const JWT = user.JWT;
-        if (user) {
-            console.log(`user dans storage ===> ${user}`);
-            console.log(`user JWT====> ${JWT}`);
-            console.log(`user JWT====> ${JSON.stringify(JWT)}`);
+        if (useUserInfos) {
+            //redirect('indexUser')
+            console.log(`useEffect====>${JSON.stringify(useUserInfos)}`);
         }
-    }, [user])
+    }, [useUserInfos])
     //*----------------------------------------------------
     
     return (

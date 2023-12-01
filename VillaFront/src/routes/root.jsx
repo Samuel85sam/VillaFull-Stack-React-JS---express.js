@@ -1,30 +1,40 @@
-import { React,useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { NavLink, Outlet, Navigate } from "react-router-dom"
 import { useAuthStore } from "../store/authStore";
 
-const Root =  () => {
-    // const navigate = Navigate;
-    const [isLoggedIn, setisLoggedIn] = useState(null);
-    // const user = await useAuthStore((state) => state.userData)
-    // const logIn = async () => {
-       
-    //         console.log(`token checked for indexUser===>${token}`);
-    //         token == !null ? setisLoggedIn(true) : null
-            
-    
-    // };
-//! pourquoi ça bug? ↓↓↓
-    // useEffect(() => {
-    //     isLoggedIn === false ? null : navigate("/indexUser")
-    //     window.location.reload();
-    // }, [isLoggedIn])
+
+const Root = async () => {
+    const userInfos = await useAuthStore((state) => state.userData);
+
     const logIn = () => {
-        setisLoggedIn(true);
-    };
+        console.log(`userInfos.string : ${JSON.stringify(userInfos)}`);
+        const { JWT } = userInfos
+
+        try {
+            if (JWT) {
+                return JWT
+            } else {
+                return null
+            }
+
+        } catch (error) {
+            console.error(`JWT ERROR : ${JWT}`);
+        }
+    }
+
     const logOut = () => {
         setisLoggedIn(false);
     };
+    const navigate = Navigate;
+    const JWT = await logIn()
+    const [isLoggedIn, setisLoggedIn] = useState(false);
 
+
+    useEffect(() => {
+        if (JWT == !null) {
+            setisLoggedIn(true);
+        }
+    },JWT)
 
     return (
         <>
@@ -50,3 +60,4 @@ const Root =  () => {
 }
 
 export default Root
+

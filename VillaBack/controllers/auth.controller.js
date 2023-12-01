@@ -59,8 +59,10 @@ const authController = {
     try {
       const { id } = req.params;
       const user = await authService.getUserById(id);
+        
       if (user) {
-        return res.json(JSON.stringify(user)).status(200)
+        return res.json(user).status(200)
+        
       }
     } catch (error) {
       console.log(`getUserById FAIL ====> ${error}`);

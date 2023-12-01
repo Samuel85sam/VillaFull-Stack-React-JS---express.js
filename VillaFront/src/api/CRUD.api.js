@@ -47,7 +47,7 @@ export const getOneById = async (id, route) => {
     try {
         const response = await axios.get(`http://localhost:3002/api/${route}${id}`)
         if (response.status == 200 || 201) {
-            return response;
+           return response;
         } else {
             console.log(`!!!--- call.api.GetOneById response.status  ===> ${response.status}---!!!`);
             return response;

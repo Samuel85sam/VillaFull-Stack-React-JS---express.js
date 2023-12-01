@@ -2,6 +2,7 @@ const userDto = require("../DTO/user.dto");
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 
+
 const authService = {
   insert: async (data) => {
     try {
