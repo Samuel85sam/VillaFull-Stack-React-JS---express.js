@@ -41,7 +41,7 @@ const SignIn = () => {
             loadUserInfos(userId);
         }
         else {
-            Redirect('index')
+          //  Redirect('index')
             alert("LOGIN FAILED ");
             console.log("LOGIN FAILED ==> reload login page ");
         }

@@ -43,7 +43,7 @@ function CommentForm() {
     //call API
     const route = 'avis/POST';
     PostForm(inputValue, route);
-    Redirect('')
+    //Redirect('')
   };
 
   return (

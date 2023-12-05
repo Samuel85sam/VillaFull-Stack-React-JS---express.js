@@ -28,11 +28,11 @@ function SignUp() {
         const result = await PostForm(formValues, route);
 
         if (result.status === 200 || 201) {
-            Redirect('index')
+           // Redirect('index')
             console.log("FROM BACKEND ==> NEW USER STORED IN DATABASE ==> redirect to user index page ");
         }
         else if (result.status === !(200 || 201)) {
-            Redirect('auth')
+            //Redirect('auth')
             alert("REGISTER FAILED Fail");
             console.log("REGISTER FAILED ==> reload login page ");
         }

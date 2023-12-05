@@ -50,7 +50,7 @@ function ResaForm() {
     //call API
     const route = 'reservation/POST';
     PostForm(inputValue, route);
-    Redirect('')
+    //Redirect('')
 
   };
 
