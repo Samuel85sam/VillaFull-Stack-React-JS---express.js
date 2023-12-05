@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import { PostForm } from '../../api/CRUD.api';
-import { Redirect } from "../../services/navigation.services";
-
+import { useNavigate } from "react-router-dom";
 function SignUp() {
     // État local pour stocker les valeurs du formulaire
     const [inputValue, setInputValue] = useState({
@@ -21,18 +20,18 @@ function SignUp() {
     const handleChange = (name, value) => {
         setInputValue((prevState) => ({ ...prevState, [name]: value }));
     };
-
-   const postStoreAndRedirect = async (inputValue) => {
+    const navigate = useNavigate();
+    const postStoreAndRedirect = async (inputValue) => {
         const formValues = inputValue
         const route = 'auth/REGISTER';
         const result = await PostForm(formValues, route);
 
         if (result.status === 200 || 201) {
-           // Redirect('index')
+           window.location.reload(true)
             console.log("FROM BACKEND ==> NEW USER STORED IN DATABASE ==> redirect to user index page ");
         }
         else if (result.status === !(200 || 201)) {
-            //Redirect('auth')
+            navigate('auth')
             alert("REGISTER FAILED Fail");
             console.log("REGISTER FAILED ==> reload login page ");
         }
@@ -74,8 +73,8 @@ function SignUp() {
 
         postStoreAndRedirect(inputValue)
     };
-        return (
-            <div className="RegistrationDiv">
+    return (
+        <div className="RegistrationDiv">
             <form>
                 <label htmlFor="nom">Nom :</label>
                 <input

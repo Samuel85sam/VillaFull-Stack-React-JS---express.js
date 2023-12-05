@@ -1,50 +1,52 @@
 import { React, useState, useEffect } from "react";
-import { NavLink, Outlet } from "react-router-dom"
-import { GetToken } from "../services/auth.services";
-import { Redirect } from "../services/navigation.services";
+import { NavLink, Outlet, useNavigate } from "react-router-dom"
+import { GetToken, GetUserFirstName } from "../services/auth.services";
 import { useAuthStore } from "../store/authStore";
-const Root =  () => {
+
+const Root = () => {
+    const navigate = useNavigate();
     const resetUserData = useAuthStore((state) => state.reset)
-    const token =  GetToken()
+    const token = GetToken()
+    const userFirstName = GetUserFirstName()
     const [isLoggedIn, setisLoggedIn] = useState(false);
     const logIn = async () => {
         console.log(JSON.stringify(`token dans login()  ====> ${token}`));
         if (token) {
             setisLoggedIn(true);
-             }else{
-                 console.log('NO TOKEN');
-                 alert(`vous n'êtes pas connecté, veuillez vous identifier`)
-                 
-
-//                TODO:trouver un moyen de rediriger sans que ça plante "Hooks can only be called inside of the body of a function component..."
-             }  
+        } else {
+            console.log('NO TOKEN');
+            navigate('auth')
+            alert(`vous n'êtes pas connecté, veuillez vous identifier`)
+        }
     };
+
     const logOut = async () => {
-       await  resetUserData();
+        await resetUserData();
         setisLoggedIn(false);
         window.location.reload(true);
-            };
+    };
 
     useEffect(() => {
-        console.log(`token dans useEffect ===> ${JSON. stringify(token)}`);
+        console.log(`token dans useEffect ===> ${JSON.stringify(token)}`);
         if (token) {
             setisLoggedIn(true);
             console.log(JSON.stringify(`token dans login()  ====> ${token}`));
-        }else{
+        } else {
             setisLoggedIn(false);
-
         }
-
-    },[])
-
+    }, [token])
 
     return (
         <>
             <div id="sidebar">
                 <nav>
                     {isLoggedIn ? (
-                        <button onClick={logOut}>Logout</button>
-                    ) : (
+                        <>
+                            <h4>LOGGED</h4>
+                            <h5>Bonjour {userFirstName}</h5>
+                            <button id="logged" onClick={logOut}>Logout</button>
+                        </>) : (
+
                         <button onClick={logIn}>Login</button>
                     )}
                     <NavLink to="/index">Home</NavLink>

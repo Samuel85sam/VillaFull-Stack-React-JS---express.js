@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { PostForm, getOneById } from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
 import { Redirect } from "../../services/navigation.services";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -10,6 +11,9 @@ const SignIn = () => {
         loginName: "login_test",
         password: "login_test",
     });
+
+    const navigate = useNavigate();
+
     const handleChange = (name, value) => {
         setInputValue((prevState) => ({ ...prevState, [name]: value }));
     };
@@ -27,6 +31,7 @@ const SignIn = () => {
             const userInfos = response.data
             if (response.status === 200) {
                 addUserInfos(userInfos)
+                navigate('/index');
             }
         } catch (error) {
             console.error('Erreur lors de la récupération des infos utilisateur:', error);
@@ -41,7 +46,7 @@ const SignIn = () => {
             loadUserInfos(userId);
         }
         else {
-          //  Redirect('index')
+            Redirect('index')
             alert("LOGIN FAILED ");
             console.log("LOGIN FAILED ==> reload login page ");
         }
