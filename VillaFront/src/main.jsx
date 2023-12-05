@@ -4,14 +4,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import './index.css'
+// import './index.css'
 import ErrorPage from "./error-page.jsx";
 import Root from "./routes/root.jsx";
 import Comments from "./routes/comments.jsx";
 import Reservation from "./routes/reservation.jsx";
 import Auth from "./routes/auth.jsx"
-import IndexAdmin from "./routes/index/indexAdmin.jsx";
-import IndexUser from "./routes/index/indexUser.jsx";
+// import IndexAdmin from "./routes/index/indexAdmin.jsx";
+// import IndexUser from "./routes/index/indexUser.jsx";
 import ProtectedRoutes from "./routes/protectedRoutes.jsx";
 import LandingPage from "./routes/index/landingPage.jsx";
 
@@ -25,18 +25,18 @@ const router = createBrowserRouter([
         path: 'index',
         element: <ProtectedRoutes />,
         errorElement: <div>Oops! There was an error.</div>,
-        children: [
-          {
-            path: "indexUser",
-            element: <IndexUser />,
-            errorElement: <div>Oops! There was an error.</div>,
-          },
-          {
-            path: "indexAdmin",
-            element: <IndexAdmin />,
-            errorElement: <div>Oops! There was an error.</div>,
-          },
-        ],
+        // children: [
+        //   {
+        //     path: "indexUser",
+        //     element: <IndexUser />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        //   {
+        //     path: "indexAdmin",
+        //     element: <IndexAdmin />,
+        //     errorElement: <div>Oops! There was an error.</div>,
+        //   },
+        // ],
       },
       {
         index: true,
