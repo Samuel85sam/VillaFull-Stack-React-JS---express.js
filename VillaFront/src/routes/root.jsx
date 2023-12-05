@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import { GetToken, GetUserFirstName } from "../services/auth.services";
 import { useAuthStore } from "../store/authStore";
+import Button from '@mui/material/Button';
 
 const Root = () => {
     const navigate = useNavigate();
@@ -42,11 +43,15 @@ const Root = () => {
                         <>
                             <h4>LOGGED</h4>
                             <h5>Bonjour {userFirstName}</h5>
-                            <button id="logged" onClick={logOut}>Logout</button>
+                            <Button variant= "contained" id="logged" onClick={logOut}>Logout</Button>
+                            <br />
                         </>) : (
-
-                        <button onClick={logIn}>Login</button>
+                        <>
+                        <Button variant= "contained" onClick={logIn}>Login</Button>
+                        <br />
+                        </>
                     )}
+                    <br />
                     <NavLink to="/index">Home</NavLink>
                     <NavLink to="/auth">Login</NavLink>
                     <NavLink to="/reservation">Reservation</NavLink>
