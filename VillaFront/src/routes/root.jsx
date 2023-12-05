@@ -1,40 +1,42 @@
-import { React, useEffect, useState } from "react";
-import { NavLink, Outlet, Navigate } from "react-router-dom"
+import { React, useState, useEffect } from "react";
+import { NavLink, Outlet } from "react-router-dom"
+import { GetToken } from "../services/auth.services";
+import { Redirect } from "../services/navigation.services";
 import { useAuthStore } from "../store/authStore";
-
-
-const Root = async () => {
-    const userInfos = await useAuthStore((state) => state.userData);
-
-    const logIn = () => {
-        console.log(`userInfos.string : ${JSON.stringify(userInfos)}`);
-        const { JWT } = userInfos
-
-        try {
-            if (JWT) {
-                return JWT
-            } else {
-                return null
-            }
-
-        } catch (error) {
-            console.error(`JWT ERROR : ${JWT}`);
-        }
-    }
-
-    const logOut = () => {
-        setisLoggedIn(false);
-    };
-    const navigate = Navigate;
-    const JWT = await logIn()
+const Root =  () => {
+    const resetUserData = useAuthStore((state) => state.reset)
+    const token =  GetToken()
     const [isLoggedIn, setisLoggedIn] = useState(false);
+    const logIn = async () => {
+        console.log(JSON.stringify(`token dans login()  ====> ${token}`));
+        if (token) {
+            setisLoggedIn(true);
+             }else{
+                 console.log('NO TOKEN');
+                 alert(`vous n'êtes pas connecté, veuillez vous identifier`)
+                 
 
+//                TODO:trouver un moyen de rediriger sans que ça plante "Hooks can only be called inside of the body of a function component..."
+             }  
+    };
+    const logOut = async () => {
+       await  resetUserData();
+        setisLoggedIn(false);
+        window.location.reload(true);
+            };
 
     useEffect(() => {
-        if (JWT == !null) {
+        console.log(`token dans useEffect ===> ${JSON. stringify(token)}`);
+        if (token) {
             setisLoggedIn(true);
+            console.log(JSON.stringify(`token dans login()  ====> ${token}`));
+        }else{
+            setisLoggedIn(false);
+
         }
-    },JWT)
+
+    },[])
+
 
     return (
         <>
@@ -45,7 +47,7 @@ const Root = async () => {
                     ) : (
                         <button onClick={logIn}>Login</button>
                     )}
-                    {isLoggedIn ? <NavLink to="indexUser">User Index</NavLink> : <NavLink to="/index">Home</NavLink>}
+                    <NavLink to="/index">Home</NavLink>
                     <NavLink to="/auth">Login</NavLink>
                     <NavLink to="/reservation">Reservation</NavLink>
                     <NavLink to="/comments">Livre D'or</NavLink>
@@ -60,4 +62,3 @@ const Root = async () => {
 }
 
 export default Root
-

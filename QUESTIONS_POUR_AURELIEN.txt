@@ -12,7 +12,9 @@ root ligne 21 useEffect fait tt bugger
 comment faire un select (by id?) en utilisant le hoover
 
 
-
+pas compris: <Navigate to='auth' replace state = {{from: location}} />
+(protectedRoutes ligne 16
+de la demo gruards
 
 
 

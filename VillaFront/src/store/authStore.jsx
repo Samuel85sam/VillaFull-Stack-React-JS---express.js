@@ -19,9 +19,23 @@ export const useAuthStore = create((set) => ({
   addUserData: (newUserData) => set((state) => ({
     ...state,
     userData: newUserData,
+    reset: () => {
+      set(initialState)
+    },
+  
   }))
+}));
 
-}))
+
+
+
+// export const clearAuthStore = create((set) => ({
+//   userData: dataStored,
+//   noData: initialState,
+//   clearUserData: (noData) => set((state) => ({
+//     ...state,
+//     userData : noData
+// }));
 
 
 
