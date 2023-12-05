@@ -27,7 +27,6 @@ const tokenGeneratorService = {
             const userId = user.id
             if (token) {
                 authService.addJwt(token, userId);
-                console.log(`tokenGenerator ====> token: ${JSON.stringify(token)}`);
                 return token
             } else { console.log('problème à la création du token!!!!!!!!!!!!!!!!!!!!!!!!!!!'); }
         }
