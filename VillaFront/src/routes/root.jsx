@@ -27,10 +27,8 @@ const Root = () => {
     };
 
     useEffect(() => {
-        console.log(`token dans useEffect ===> ${JSON.stringify(token)}`);
         if (token) {
             setisLoggedIn(true);
-            console.log(JSON.stringify(`token dans login()  ====> ${token}`));
         } else {
             setisLoggedIn(false);
         }

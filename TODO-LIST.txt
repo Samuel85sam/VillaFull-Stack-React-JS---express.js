@@ -1,6 +1,6 @@
 
 
-• GUARDS
+
 • bouton DELETE sur Comments
 • DashBoard User >< Admin  
 • Route "Utilisateurs" visible que par le profil Admin

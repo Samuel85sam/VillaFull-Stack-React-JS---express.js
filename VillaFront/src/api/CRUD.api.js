@@ -27,14 +27,11 @@ export const EditForm = async (data, route) => {
 
 export const DeleteForm = async (data, route) => {
     try {
-        console.log(`Call.api ==> ${route}`)
         const response = await axios.delete(`http://localhost:3002/api/${route}`, data)
         if (response.status == 200 || 201) {
-            console.log(`call.api.Delete response.status  ===> ${response.status}`);
             return response;
         } else {
             console.log(`call.api.Delete response.status  ===> ${response.status}`);
-
             return response;
         }
     } catch (err) {
