@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { PostForm } from '../../api/CRUD.api';
-import { Redirect } from '../../services/navigation.services';
+import { useNavigate } from 'react-router-dom';
 
 function ResaForm() {
   const [inputValue, setInputValue] = useState({
@@ -12,6 +12,7 @@ function ResaForm() {
     residentQty: "3",
   });
  
+    const navigate = useNavigate 
   //gestion form.
   const handleChange = (name, value) => {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
@@ -50,7 +51,7 @@ function ResaForm() {
     //call API
     const route = 'reservation/POST';
     PostForm(inputValue, route);
-    //Redirect('')
+    navigate('index')
 
   };
 

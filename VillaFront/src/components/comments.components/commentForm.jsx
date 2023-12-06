@@ -1,7 +1,6 @@
 
 import { React, useState } from "react";
 import { PostForm } from '../../api/CRUD.api';
-import { Redirect } from "../../services/navigation.services";
 
 function CommentForm() {
   const [inputValue, setInputValue] = useState({

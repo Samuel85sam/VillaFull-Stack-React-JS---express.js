@@ -10,10 +10,13 @@ import Root from "./routes/root.jsx";
 import Comments from "./routes/comments.jsx";
 import Reservation from "./routes/reservation.jsx";
 import Auth from "./routes/auth.jsx"
-import IndexAdmin from "./routes/index/indexAdmin.jsx";
-import IndexUser from "./routes/index/indexUser.jsx";
-import ProtectedRoutes from "./routes/protectedRoutes.jsx";
-import LandingPage from "./routes/index/landingPage.jsx";
+import IndexAdmin from "./components/index/indexAdmin.jsx";
+import IndexUser from "./components/index/indexUser.jsx";
+import LandingPage from "./components/index/landingPage.jsx";
+import ProtectedRoutes from "./routes/protectedIndex.jsx";
+import UserPage from "./components/User/userPage.jsx";
+import UserProfile from "./components/User/userProfile.jsx";
+import ProtectedUserPages from "./routes/protectedUserPages.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,23 @@ const router = createBrowserRouter([
           {
             path: "indexAdmin",
             element: <IndexAdmin />,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
+        ],
+      },
+      {
+        path: 'UserPages/:target',
+        element: <ProtectedUserPages/>,
+        errorElement: <div>Oops! There was an error.</div>,
+        children:[
+          {
+            path: "userPage",
+            element: <UserPage />,
+            errorElement: <div>Oops! There was an error.</div>,
+          },
+          {
+            path: "userProfile",
+            element: <UserProfile />,
             errorElement: <div>Oops! There was an error.</div>,
           },
         ],

@@ -18,10 +18,55 @@ import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Root = () => {
+
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    const [isLoggedIn, setisLoggedIn] = useState(false);
+
+    const navigate = useNavigate();
     const resetUserData = useAuthStore((state) => state.reset)
     const token = GetToken()
     const userFirstName = GetUserFirstName()
-    const [isLoggedIn, setisLoggedIn] = useState(false);
+
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+//!TODO ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    const logOut = async () => {
+        await resetUserData();
+        setisLoggedIn(false);
+        window.location.reload(true);
+    };
+
+     //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑Uncaught Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+// 1. You might have mismatching versions of React and the renderer (such as React DOM)
+// 2. You might be breaking the Rules of Hooks
+// 3. You might have more than one copy of React in the same app
+// See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+
+    const logIn = async () => {
+        console.log(JSON.stringify(`token dans login()  ====> ${token}`));
+        if (token) {
+            setisLoggedIn(true);
+            alert(`vous êtes connecté, bienvenue ${userFirstName}`)
+
+        } else {
+            console.log('NO TOKEN');
+            navigate('auth')
+            handleCloseUserMenu()
+            alert(`veuillez vous identifier`)
+        }
+    };
+
     const pagesLinks = [
         <Link to='index'>
             Home
@@ -31,39 +76,25 @@ const Root = () => {
         </Link>,
         <Link to="comments">
             Livre d'Or
-        </Link>
+        </Link>,
+        <Link to="auth">
+        connexion / créer un compte client 
+    </Link>
     ];
-    const logOut = async () => {
-        await resetUserData();
-        setisLoggedIn(false);
-        window.location.reload(true);
-    };
-
+    // const profile = 'profile';
+    // const userPage = 'userPage';
+    
     const settingsLinks = [
-        <Link to='userProfile'>
-            Profile
-        </Link>,
-        <Link to='userAccount'>
-            Espace personnel
-        </Link>,
-        <Button variant="text" onClick={logOut}>
-            <Typography variant="h5">
-                Logout
-            </Typography>
-        </Button>
-    ];
-    const logIn = async () => {
-        console.log(JSON.stringify(`token dans login()  ====> ${token}`));
-        if (token) {
-            setisLoggedIn(true);
-        } else {
-            console.log('NO TOKEN');
-            navigate('auth')
-            alert(`vous n'êtes pas connecté, veuillez vous identifier`)
-        }
-    };
+        <Link to = 'userpages/profile'>Profile</Link>,
+        <Link to = 'userpages/userPage'>Espace Personnel</Link>
 
-   
+        // <Link to={{pathname: `userPages/${this.props.target}`, query: {profile}}} >
+        //     Profile
+        // </Link>,
+        //   <Link to={{pathname: `userPages/${this.props.target}`, query: {userPage}}} >
+        //     Espace personnel
+        // </Link>
+    ];
 
     useEffect(() => {
         if (token) {
@@ -72,59 +103,26 @@ const Root = () => {
             setisLoggedIn(false);
         }
     }, [token])
-    const [anchorElNav, setAnchorElNav] = useState(null);
-    const [anchorElUser, setAnchorElUser] = useState(null);
-    const navigate = useNavigate();
-
-
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    // const redirect = (route) => {
-    //     const target = null
-    //     if (route = 'Home') {
-    //         target = 'index'
-    //     } else if (route = 'Reservation') {
-    //         target = 'reservation'
-    //     } else if (route = 'Livre D\'Or') {
-    //         target = 'comments'
-    //     }
-    //     route = target
-    //     navigate(route)
-
-    // }
 
     return (
-
-
         <>
             < AppBar position="static" >
                 {/* AppBar est une barre d'application qui contient des composants comme Toolbar, Typography, IconButton, etc. */}
                 < Container maxWidth="xl" >
                     {/* Container est un composant de Material-UI qui enveloppe le contenu avec une largeur maximale. */}
+
                     < Toolbar disableGutters >
-                        {/* Toolbar */}
+                        {/*--------------------------------------------------------------------------------------------------------------------*/}
+                        {/* Icon Villa + titre = Toolbar */}
+                        {/* (mode petit écran) Icon menu */}
                         < AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 5 }} />
-                        {/* Icon Android */}
+
                         <Typography
                             variant="h6"
                             noWrap
                             component="a"
                             href="#app-bar-with-responsive-menu"
                             sx={{
-                                //  titre de l'application.
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
                                 fontfamily: 'GFS Neohellenic',
@@ -136,8 +134,11 @@ const Root = () => {
                         >
                             Villa Kalokairi
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 
+                        {/*--------------------------------------------------------------------------------------------------------------------*/}
+                        {/* (mode petit écran)  menu Nav*/}
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -148,7 +149,6 @@ const Root = () => {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            {/* Icon menu Nav*/}
                             <Menu
                                 id="menu-appbar"
                                 anchorEl={anchorElNav}
@@ -167,7 +167,6 @@ const Root = () => {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {/* Menu ouvert*/}
                                 {pagesLinks.map((page, index) => (
                                     <MenuItem key={index} onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{page}</Typography>
@@ -176,9 +175,11 @@ const Root = () => {
                             </Menu>
                         </Box>
 
-                        {/* mêmes éléments*/}
+                        {/*--------------------------------------------------------------------------------------------------------------------*/}
+                        {/* (mode grand écran) Icon menu */}
+
+
                         <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                        {/*Icon Androïd */}
                         <Typography
                             variant="h5"
                             noWrap
@@ -197,8 +198,11 @@ const Root = () => {
                         >
                             Villa Kalokairi
                         </Typography>
+
+                        {/*--------------------------------------------------------------------------------------------------------------------*/}
+                        {/* (mode grand écran)  menu Nav*/}
+
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {/* Une boîte supplémentaire pour les éléments à afficher sur les grands écrans. */}
                             {pagesLinks.map((page, index) => (
                                 <Button
                                     key={index}
@@ -209,12 +213,14 @@ const Root = () => {
                                 </Button>
                             ))}
                         </Box>
+
+                        {/*--------------------------------------------------------------------------------------------------------------------*/}
+                        {/*menu utilisateur */}
+
                         <Box sx={{ flexGrow: 0 }}>
-                            {/* Une boîte supplémentaire avec flexGrow à 0 pour spécifier qu'elle ne doit pas prendre autant d'espace que possible. */}
-                            <Tooltip title={token? userFirstName : ''}>
-                                {/* Tooltip est un composant qui affiche une info-bulle au survol. */}
+                            {/* flexGrow à 0 pour spécifier qu'elle Ne doit PAS prendre autant d'espace que possible. */}
+                            <Tooltip title={token ? userFirstName : ''}>
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    {/* Icon utilisateur */}
                                     <AccountCircle />
                                 </IconButton>
                             </Tooltip>
@@ -234,12 +240,20 @@ const Root = () => {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {/* Menu d'utilisateur similaire au menu de navigation, mais avec des éléments différents. */}
                                 {settingsLinks.map((setting, index) => (
                                     <MenuItem key={index} onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center">{setting}</Typography>
                                     </MenuItem>
                                 ))}
+                                {isLoggedIn ? <Button variant="text" onClick={logOut}>
+                                    <Typography variant="h7">
+                                        Logout
+                                    </Typography>
+                                </Button> : <Button variant="text" onClick={logIn}>
+                                    <Typography variant="h7">
+                                        Login
+                                    </Typography>
+                                </Button>}
                             </Menu>
                         </Box>
                     </Toolbar >
@@ -251,66 +265,3 @@ const Root = () => {
     );
 }
 export default Root;
-// const Root = () => {
-//     const navigate = useNavigate();
-//     const resetUserData = useAuthStore((state) => state.reset)
-//     const token = GetToken()
-//     const userFirstName = GetUserFirstName()
-//     const [isLoggedIn, setisLoggedIn] = useState(false);
-//     const logIn = async () => {
-//         console.log(JSON.stringify(`token dans login()  ====> ${token}`));
-//         if (token) {
-//             setisLoggedIn(true);
-//         } else {
-//             console.log('NO TOKEN');
-//             navigate('auth')
-//             alert(`vous n'êtes pas connecté, veuillez vous identifier`)
-//         }
-//     };
-
-//     const logOut = async () => {
-//         await resetUserData();
-//         setisLoggedIn(false);
-//         window.location.reload(true);
-//     };
-
-//     useEffect(() => {
-//         if (token) {
-//             setisLoggedIn(true);
-//         } else {
-//             setisLoggedIn(false);
-//         }
-//     }, [token])
-
-//     return (
-//         <>
-//             <div id="sidebar">
-//                 <nav>
-//                     {isLoggedIn ? (
-//                         <>
-//                             <h4>LOGGED</h4>
-//                             <h5>Bonjour {userFirstName}</h5>
-//                             <Button variant= "contained" id="logged" onClick={logOut}>Logout</Button>
-//                             <br />
-//                         </>) : (
-//                         <>
-//                         <Button variant= "contained" onClick={logIn}>Login</Button>
-//                         <br />
-//                         </>
-//                     )}
-//                     <br />
-//                     <NavLink to="/index">Home</NavLink>
-//                     <NavLink to="/auth">Login</NavLink>
-//                     <NavLink to="/reservation">Reservation</NavLink>
-//                     <NavLink to="/comments">Livre D'or</NavLink>
-//                 </nav>
-//             </div>
-//             <div id="detail">
-//                 <h1>Villa Kalokairi</h1>
-//                 <Outlet />
-//             </div>
-//         </>
-//     )
-// }
-
-// export default Root

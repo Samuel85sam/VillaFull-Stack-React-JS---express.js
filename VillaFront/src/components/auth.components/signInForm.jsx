@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { PostForm, getOneById } from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
-import { Redirect } from "../../services/navigation.services";
 import { useNavigate } from "react-router-dom";
 
 
@@ -46,7 +45,7 @@ const SignIn = () => {
             loadUserInfos(userId);
         }
         else {
-            Redirect('index')
+            navigate('index')
             alert("LOGIN FAILED ");
             console.log("LOGIN FAILED ==> reload login page ");
         }

@@ -1,8 +1,8 @@
 import React from 'react'
 import { GetToken } from '../services/auth.services';
-import IndexUser from './index/indexUser';
-import IndexAdmin from './index/indexAdmin';
-import LandingPage from './index/landingPage';
+import IndexUser from '../components/index/indexUser';
+import IndexAdmin from '../components/index/indexAdmin';
+import LandingPage from '../components/index/landingPage';
 
 const ProtectedRoutes = () => {
 
