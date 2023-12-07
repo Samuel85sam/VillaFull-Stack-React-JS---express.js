@@ -10,14 +10,14 @@ function Auth() {
   };
 
   return (
-    <>    <h1>Login Page</h1>
+    <>
+      <h1>Login Page</h1>
       <div id="sidebar">
         <button onClick={handleAction}>
           {isRegistered ? "S'enregistrer" : "Se connecter"}
         </button>
         {isRegistered ? <SignIn /> : <SignUp />}
       </div>
-
     </>
 
   )

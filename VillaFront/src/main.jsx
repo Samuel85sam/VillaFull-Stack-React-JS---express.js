@@ -42,17 +42,17 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'UserPages/:target',
+        path: 'user/:target',
         element: <ProtectedUserPages/>,
         errorElement: <div>Oops! There was an error.</div>,
         children:[
           {
-            path: "userPage",
+            path: "page",
             element: <UserPage />,
             errorElement: <div>Oops! There was an error.</div>,
           },
           {
-            path: "userProfile",
+            path: "profile",
             element: <UserProfile />,
             errorElement: <div>Oops! There was an error.</div>,
           },

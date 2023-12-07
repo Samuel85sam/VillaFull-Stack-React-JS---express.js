@@ -40,18 +40,12 @@ const Root = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-//!TODO ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     const logOut = async () => {
         await resetUserData();
         setisLoggedIn(false);
+        navigate('index')
         window.location.reload(true);
     };
-
-     //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑Uncaught Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
-// 1. You might have mismatching versions of React and the renderer (such as React DOM)
-// 2. You might be breaking the Rules of Hooks
-// 3. You might have more than one copy of React in the same app
-// See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
 
     const logIn = async () => {
         console.log(JSON.stringify(`token dans login()  ====> ${token}`));
@@ -81,20 +75,12 @@ const Root = () => {
         connexion / créer un compte client 
     </Link>
     ];
-    // const profile = 'profile';
-    // const userPage = 'userPage';
     
     const settingsLinks = [
-        <Link to = 'userpages/profile'>Profile</Link>,
-        <Link to = 'userpages/userPage'>Espace Personnel</Link>
+        <Link to = 'user/profile'>Profile</Link>,
+        <Link to = 'user/page'>Espace Personnel</Link>
 
-        // <Link to={{pathname: `userPages/${this.props.target}`, query: {profile}}} >
-        //     Profile
-        // </Link>,
-        //   <Link to={{pathname: `userPages/${this.props.target}`, query: {userPage}}} >
-        //     Espace personnel
-        // </Link>
-    ];
+     ];
 
     useEffect(() => {
         if (token) {
