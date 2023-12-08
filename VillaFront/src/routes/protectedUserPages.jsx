@@ -1,37 +1,44 @@
 import { React, useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { GetToken, clearStore, logOut } from '../services/auth.services'
+import { GetToken } from '../services/auth.services'
 import UserPage from '../components/User/userPage'
 import UserProfile from '../components/User/userProfile'
-const ProtectedUserPages = () => {
+
+
+const ProtectedUserPages =   () => {
 
     const [isLoggedIn, setisLoggedIn] = useState(false);
-    const navigate = useNavigate
-    const token = GetToken()
-    let {target} = useParams()
+    const navigate = useNavigate()
+    const token =  GetToken()
+    let { target } =  useParams()
+    
+    const goTarget =  (logged) => {
+       console.log(logged);
 
-    const goTarget = () =>{
-        if (target == 'page') {
-            return <UserPage/>
-        }else if (target =='profile') {
-           return  <UserProfile/>
+            if (logged) {
+                
+                if (target == 'page') {
+                    return <UserPage />
+                } else if (target == 'profile') {
+                    return <UserProfile />
+                }
+             }
         }
-    }
-
-    useEffect(() => {
-        if (token) {
-            setisLoggedIn(true);
-        } else {
-            setisLoggedIn(false);
-            clearStore()
-            navigate('auth')
+            
+            useEffect(() => {
+                if (token) {
+                    setisLoggedIn(true);
+                } else {
+                    setisLoggedIn(false)
+                    navigate('/auth')
+                                        
         }
-    }, [token])
+    }, [token,isLoggedIn])
 
     return (
         <>
-            {isLoggedIn ? <>
-                {goTarget()} </> : null
+            {
+                goTarget(isLoggedIn)
             }
         </>
     )

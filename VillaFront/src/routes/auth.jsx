@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import SignIn from '../components/auth.components/signInForm';
 import SignUp from '../components/auth.components/signUpForm';
+import { Button } from '@mui/material';
 
 function Auth() {
   const [isRegistered, setIsRegistered] = useState(true);
@@ -10,14 +11,19 @@ function Auth() {
   };
 
   return (
-    <>
-      <h1>Login Page</h1>
+    <>    
       <div id="sidebar">
-        <button onClick={handleAction}>
-          {isRegistered ? "S'enregistrer" : "Se connecter"}
-        </button>
+        <Button 
+        color = 'secondary' 
+        onClick={handleAction}
+        fullWidth= {true}
+        size = 'large'
+         >
+          {isRegistered ? "Créer Un Compte → " : "Se connecter → "}
+        </Button>
         {isRegistered ? <SignIn /> : <SignUp />}
       </div>
+
     </>
 
   )
@@ -26,4 +32,3 @@ function Auth() {
 
 
 export default Auth
-

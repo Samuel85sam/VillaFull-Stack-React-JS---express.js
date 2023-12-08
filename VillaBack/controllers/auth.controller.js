@@ -26,28 +26,32 @@ const authController = {
   },
 
   login: async (req, res) => {
+
     const { loginName, password } = req.body;
     const user = await authService.exist(loginName);
-    const hashedPassword = user.hashedPassword
-    const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
     try {
-      if (!user) {
-        console.log(" ===> USER NOT FOUND");
+
+      if (user === null) {
+        console.log("auth.service  ===> USER NOT FOUND");
         return res.status(401).json({ message: "USER NOT FOUND" });
-      };
-      if (!passwordMatch) {
-        alert('The server refuses the attempt to brew coffee with a teapot.')
-        console.log('The server refuses the attempt to brew coffee with a teapot.');
-        return res.status(418)
-        //? return res.status(401).json({ message: "Mot de passe incorrect" });
-      };
-      const token = tokenGeneratorService.CreateAndStoreJWT(user)
-      if (token) {
-        res.setHeader("Authorization", `Bearer ${token}`);
-        return res.status(200).json({ token, user });
       } else {
-        console.log(`TOKEN=========> ${JSON.stringify(token)}`);
-        console.error(`No User For TokenGeneratorService===> user===> ${JSON.stringify(user)}`)
+        const hashedPassword = user.hashedPassword
+        const passwordMatch = await bcrypt.compare(password, hashedPassword);
+        if (!passwordMatch) {
+          alert('The server refuses the attempt to brew coffee with a teapot.')
+          console.log('The server refuses the attempt to brew coffee with a teapot.');
+          return res.status(418)
+          //? return res.status(401).json({ message: "Mot de passe incorrect" });
+        };
+        const token = tokenGeneratorService.CreateAndStoreJWT(user)
+        if (token) {
+          res.setHeader("Authorization", `Bearer ${token}`);
+          return res.status(200).json({ token, user });
+        } else {
+          console.log(`TOKEN=========> ${JSON.stringify(token)}`);
+          console.error(`No User For TokenGeneratorService===> user===> ${JSON.stringify(user)}`)
+        }
       }
     } catch (err) {
       console.error(err);
@@ -59,10 +63,10 @@ const authController = {
     try {
       const { id } = req.params;
       const user = await authService.getUserById(id);
-        
+
       if (user) {
         return res.json(user).status(200)
-        
+
       }
     } catch (error) {
       console.log(`getUserById FAIL ====> ${error}`);

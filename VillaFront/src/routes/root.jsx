@@ -57,7 +57,6 @@ const Root = () => {
             console.log('NO TOKEN');
             navigate('auth')
             handleCloseUserMenu()
-            alert(`veuillez vous identifier`)
         }
     };
 

@@ -2,13 +2,20 @@ import axios from "axios";
 
 
 export const PostForm = async (data, route) => {
+    // const response = await axios.post(`http://localhost:3002/api/${route}`, data)
+    //     console.log(`repose PostForm : ${data} ===> .stringified : ${JSON.stringify(data)}`);
+    //     console.log(`repose PostForm : ${response} ===> .stringified : ${JSON.stringify(response)}`);
     try {
         const response = await axios.post(`http://localhost:3002/api/${route}`, data)
+        // console.log(`repose PostForm : ${data} ===> .stringified : ${JSON.stringify(data)}`);
+        // console.log(`repose PostForm : ${response} ===> .stringified : ${JSON.stringify(response)}`);
         return response;
     } catch (err) {
-        console.error(err)
-        console.log("POSTcall to API FAILED!!!===>", err);
-    }
+  
+        console.log(`PostForm return error.response (ici stringifié) ===> ${JSON.stringify(err.response)}`);
+        return err.response
+    //     console.log(`repose PostForm : ${response} ===> .stringified : ${JSON.stringify(response)}`);
+     }
 }
 
 export const EditForm = async (data, route) => {

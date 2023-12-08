@@ -14,9 +14,16 @@ const authService = {
   },
 
   exist: async (loginName) => {
+    console.log(`loginName dans service.exist : ===>${loginName}`);
     const user = await db.user.findOne({
       where: { loginName },
     });
+    console.log(`user dans auth.service.exist ===>${user}`);
+
+    if (user === null) {
+      return null
+    }
+
     return new userDto(user);
   },
 
