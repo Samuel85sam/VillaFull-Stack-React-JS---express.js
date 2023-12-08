@@ -7,11 +7,13 @@ const authController = {
   register: async (req, res) => {
     const authData = req.body;
     const validatedData = await userValidator.validate(authData);
-    const { password } = validatedData;
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    validatedData.hashedPassword = hashedPassword;
-    delete validatedData.password;
+    console.log(`validateData dans authController ==> ${validatedData} stringified ==> ${JSON.stringify(validatedData)}`);//!LOG
+    if (validatedData) {
+      
+    }
     const authInserted = await authService.insert(validatedData);
+    console.log(`authInserted dans authController ==> ${authInserted} stringified ==> ${JSON.stringify(authInserted)}`);//!LOG
+
     try {
       if (authInserted) {
         res.status(201)
@@ -21,7 +23,15 @@ const authController = {
     } catch (err) {
       console.log(res.status.txt);
       console.error(err);
-      res.sendStatus(404); //TODO: retour err.status ==> gesion dataInsert fail
+      //res.sendStatus(404); //TODO: retour err.status ==> gestion dataInsert fail
+      // res.status(401)
+      // .location(`api/auth/REGISTER`)
+      // .json(err);
+      console.log(`err dans authservice.insert ==> ${err} stringified ==> ${JSON.stringify(err)}`);//!LOG
+
+      return res.status(401)
+                .location(`api/auth/REGISTER`)
+                .json(err);
     }
   },
 

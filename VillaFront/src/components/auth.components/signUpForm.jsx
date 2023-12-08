@@ -27,6 +27,36 @@ const SignUp = () => {
             email: formData.get('email'),
             password: formData.get('password'),
         });
+
+       
+            if (formData.get('nom') === '') {
+                alert('veuillez saisir un nom.');
+                return;
+            }
+            if (formData.get('prenom') === '') {
+                alert('veuillez saisir un prenom.');
+                return;
+            }
+            if (formData.get('adresse') === '') {
+                alert('veuillez saisir un adresse.');
+                return;
+            }
+            if (formData.get('tel') === '') {
+                alert('veuillez saisir un tel.');
+                return;
+            }
+            if (formData.get('email') === '') {
+                alert('veuillez saisir une adresse email.');
+                return;
+            }
+            if (formData.get('loginName') === '') {
+                alert('veuillez saisir un nom.');
+                return;
+            }
+            if (formData.get('password') === '') {
+                alert('veuillez saisir un password.');
+                return;
+            }
         const data = Object.fromEntries(formData)
         
         postStoreAndRedirect(data)      
@@ -41,10 +71,16 @@ const SignUp = () => {
            window.location.reload(true)
             console.log("FROM BACKEND ==> NEW USER STORED IN DATABASE ==> redirect to user index page ");
         }
-        else if (result.status !== 200 || result.status !==  201) {
-            navigate('auth')
+        else if (result.status === 401) {
+            alert(`Valeurs introduites non - valides`)
+            console.log("Wrong Values ==> reload login page ");
+            navigate('/auth')
+
+        }
+        else {
             alert("REGISTER FAILED Fail");
             console.log("REGISTER FAILED ==> reload login page ");
+            navigate('/auth')
         }
     };
 
@@ -93,10 +129,10 @@ const SignUp = () => {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="Adress"
-                                    label=" Address"
-                                    name="Adress"
-                                    autoComplete="Adress"
+                                    id="adress"
+                                    label=" address"
+                                    name="adress"
+                                    autoComplete="adress"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -124,7 +160,7 @@ const SignUp = () => {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="email"
                                     name="email"
                                     autoComplete="email"
                                 />
@@ -134,7 +170,7 @@ const SignUp = () => {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="password"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
