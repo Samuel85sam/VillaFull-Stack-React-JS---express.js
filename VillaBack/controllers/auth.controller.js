@@ -21,7 +21,7 @@ const authController = {
     } catch (err) {
       console.log(res.status.txt);
       console.error(err);
-      res.sendStatus(404);
+      res.sendStatus(404); //TODO: retour err.status ==> gesion dataInsert fail
     }
   },
 
@@ -33,7 +33,7 @@ const authController = {
     try {
 
       if (user === null) {
-        console.log("auth.service  ===> USER NOT FOUND");
+        console.log("auth.service npm run dev ===> USER NOT FOUND");
         return res.status(401).json({ message: "USER NOT FOUND" });
       } else {
         const hashedPassword = user.hashedPassword

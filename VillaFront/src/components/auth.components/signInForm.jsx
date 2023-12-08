@@ -16,95 +16,75 @@ import { PostForm, getOneById } from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
 
-
-//  function Copyright(props: any) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
-
 const defaultTheme = createTheme();
 
 const SignIn = () => {
   const addUserInfos = useAuthStore((state) => state.addUserData);
   const useUserInfos = useAuthStore((state) => state.userData)
   const navigate = useNavigate();
- 
 
-  const handleSubmit =   (event) => {
+
+  const loadUserInfos = async (userId) => {
+    try {
+      const route = 'auth/GETONEbyID/';
+      const id = userId;
+      const response = await getOneById(id, route);
+      const userInfos = response.data
+      if (response.status === 200) {
+        addUserInfos(userInfos)
+        navigate('/index');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des infos utilisateur:', error);
+    }
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const formData =  new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
-     
+
     postCheckAndRedirect(data)
   };
 
-const loadUserInfos = async (userId) => {
-     try {
-        const route = 'auth/GETONEbyID/';
-        const id = userId;
-        const response = await getOneById(id, route);
-        const userInfos = response.data
-        if (response.status === 200) {
-            addUserInfos(userInfos)
-            navigate('/index');
-        }
-      } catch (error) {
-        console.error('Erreur lors de la récupération des infos utilisateur:', error);
-     }
- };
-
   const postCheckAndRedirect = async (data) => {
     //  console.log(`data dans postCheckAndRedirect ===>${data} ===> stringified: ===> ${JSON.stringify(data)}`);
-    try 
-    {
+    try {
       const route = 'auth/LOGIN';
-         const result = await PostForm(data, route);
-         console.log(`result dans signInForm ==> ${JSON.stringify(result)}`);
+      const result = await PostForm(data, route);
+      console.log(`result dans signInForm ==> ${JSON.stringify(result)}`);
 
-         if (result.status === 200 || result.status === 201) 
-         {
-          console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
-         const userId = result.data.user.id 
-         
-           loadUserInfos(userId);   
-         }
-          else if(result.status === 401)
-          {
-            console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
-            navigate('/auth')
-            alert("Utilisateur inexistant");
-          }
-          else if (result.status === 418) 
-          {
-            console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
-           navigate('/auth')
-           alert('I refuse the attempt to brew coffee    with a      teapot.')
-           }
-           else{
-            console.log(`result stringifié dans signIn.postCkeckAndRedirect ===> ${JSON.stringify(result)}`);
-           }
-        } 
-        catch (error) 
-        {
-         console.log("LOGIN POST TO API OR RESPONSE FAILED");
-         console.log(`ERROR: ===> ${error}`);
+      if (result.status === 200 || result.status === 201) {
+        console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
+        const userId = result.data.user.id
+
+        loadUserInfos(userId);
+      }
+      else if (result.status === 401) {
+        console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
+        navigate('/auth')
+        alert("Utilisateur inexistant");
+      }
+      else if (result.status === 418) {
+        console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
+        navigate('/auth')
+        alert('I refuse the attempt to brew coffee    with a      teapot.')
+      }
+      else {
+        console.log(`result stringifié dans signIn.postCkeckAndRedirect ===> ${JSON.stringify(result)}`);
       }
     }
-
- useEffect(() => {
-  if (useUserInfos) {
-      console.log(`STORED ====>${JSON.stringify(useUserInfos)}`);
+    catch (error) {
+      console.log("LOGIN POST TO API OR RESPONSE FAILED");
+      console.log(`ERROR: ===> ${error}`);
+    }
   }
-}, [useUserInfos])
+
+  useEffect(() => {
+    if (useUserInfos) {
+      console.log(`STORED ====>${JSON.stringify(useUserInfos)}`);
+    }
+  }, [useUserInfos])
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -112,19 +92,19 @@ const loadUserInfos = async (userId) => {
         <CssBaseline />
         <Box
           sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-            >
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Connexion à votre espace personnel
           </Typography>
-            {/* --------------------------------------------------- */}
+          {/* --------------------------------------------------- */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
