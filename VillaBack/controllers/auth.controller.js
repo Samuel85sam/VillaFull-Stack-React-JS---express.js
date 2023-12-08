@@ -9,7 +9,10 @@ const authController = {
     const validatedData = await userValidator.validate(authData);
     console.log(`validateData dans authController ==> ${validatedData} stringified ==> ${JSON.stringify(validatedData)}`);//!LOG
     if (validatedData) {
-      
+      const { password } = validatedData;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    validatedData.hashedPassword = hashedPassword;
+    delete validatedData.password;
     }
     const authInserted = await authService.insert(validatedData);
     console.log(`authInserted dans authController ==> ${authInserted} stringified ==> ${JSON.stringify(authInserted)}`);//!LOG

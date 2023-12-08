@@ -4,10 +4,13 @@ import axios from "axios";
 export const PostForm = async (data, route) => {
     
     try {
-        
+        console.log(`data dans Postform.CRUD ==> ${data} stringified ==> ${JSON.stringify(data)}`);//!LOG
+
         const response = await axios.post(`http://localhost:3002/api/${route}`, data)
+        console.log(`response dans Postform.CRUD ==> ${response} stringified ==> ${JSON.stringify(response)}`);//!LOG
 
          return response;
+         
 
     } catch (err) {
   

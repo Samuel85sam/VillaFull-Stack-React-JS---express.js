@@ -23,12 +23,7 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        console.log({
-            email: formData.get('email'),
-            password: formData.get('password'),
-        });
-
-       
+               
             if (formData.get('nom') === '') {
                 alert('veuillez saisir un nom.');
                 return;
@@ -45,7 +40,7 @@ const SignUp = () => {
                 alert('veuillez saisir un tel.');
                 return;
             }
-            if (formData.get('email') === '') {
+            if (formData.get('mail') === '') {
                 alert('veuillez saisir une adresse email.');
                 return;
             }
@@ -57,8 +52,8 @@ const SignUp = () => {
                 alert('veuillez saisir un password.');
                 return;
             }
+
         const data = Object.fromEntries(formData)
-        
         postStoreAndRedirect(data)      
     };
 
@@ -107,73 +102,73 @@ const SignUp = () => {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="nom"
                                     required
                                     fullWidth
-                                    id="firstName"
+                                    id="nom"
                                     label="First Name"
                                     autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
                                     autoComplete="family-name"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
                                     required
                                     fullWidth
-                                    id="adress"
-                                    label=" address"
-                                    name="adress"
-                                    autoComplete="adress"
+                                    id="prenom"
+                                    label="Last Name"
+                                    name="prenom"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    autoComplete="adress"
+                                    required
+                                    fullWidth
+                                    id="adresse"
+                                    label=" adresse"
+                                    name="adresse"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    autoComplete="tel"
                                     required
                                     fullWidth
                                     id="tel"
                                     label="tel"
                                     name="tel"
-                                    autoComplete="tel"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    autoComplete="loginName"
                                     required
                                     fullWidth
                                     id="loginName"
                                     label="loginName"
                                     name="loginName"
-                                    autoComplete="loginName"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    autoComplete="email"
                                     required
                                     fullWidth
-                                    id="email"
-                                    label="email"
-                                    name="email"
-                                    autoComplete="email"
+                                    id="mail"
+                                    label="mail"
+                                    name="mail"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    autoComplete="new-password"
                                     required
                                     fullWidth
                                     name="password"
                                     label="password"
                                     type="password"
                                     id="password"
-                                    autoComplete="new-password"
                                 />
                             </Grid>
                             <Grid item xs={12}>

@@ -11,28 +11,45 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { React, useEffect, useState, FormEvent } from "react";
+import { React, useEffect, useState } from "react";
 import { PostForm, getOneById } from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
+import { GetToken } from '../../services/auth.services';
 
 const defaultTheme = createTheme();
 
-const SignIn = () => {
+const SignIn =  () => {
+  //const [readyToNav, setReadyToNav] = useState(false);
   const addUserInfos = useAuthStore((state) => state.addUserData);
-  const useUserInfos = useAuthStore((state) => state.userData)
+  const useUserInfos = useAuthStore((state) => state.userData);
   const navigate = useNavigate();
+  const token =  GetToken();
+  console.log(`token dans SignIn ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG;
+  const checkAndNavigate = async (route) => {
+        const ready = await //TODO ==> trouver une façon d'attendre la recupération et le storage du token avant de rediriger
+  }
 
+
+  
 
   const loadUserInfos = async (userId) => {
     try {
+      
       const route = 'auth/GETONEbyID/';
       const id = userId;
       const response = await getOneById(id, route);
       const userInfos = response.data
-      if (response.status === 200) {
+      if (response.status === 200 ) {
+        console.log(`response.status dans signIn.loadUserInfo ==> ${response.status} stringified ==> ${JSON.stringify(response.status)}`);//!LOG
+        console.log(`token dans signIn.loadUserInfo ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
+
         addUserInfos(userInfos)
-        navigate('/index');
+        checkAndNavigate('/index');
+      }else{
+        console.log(`response.status dans signIn.loadUserInfo ==> ${response.status} stringified ==> ${JSON.stringify(response.status)}`);//!LOG
+        console.log(`token dans signIn.loadUserInfo ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
+        console.log(`authStore==> userInfos UnStored!!!`);
       }
     } catch (error) {
       console.error('Erreur lors de la récupération des infos utilisateur:', error);
@@ -48,18 +65,14 @@ const SignIn = () => {
   };
 
   const postCheckAndRedirect = async (data) => {
-    //  console.log(`data dans postCheckAndRedirect ===>${data} ===> stringified: ===> ${JSON.stringify(data)}`);
     try {
       const route = 'auth/LOGIN';
       const result = await PostForm(data, route);
-      console.log(`result dans signInForm ==> ${JSON.stringify(result)}`);
 
       if (result.status === 200 || result.status === 201) {
-        console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
         const userId = result.data.user.id
-
         loadUserInfos(userId);
-      }
+       }
       else if (result.status === 401) {
         console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
         navigate('/auth')
@@ -79,6 +92,12 @@ const SignIn = () => {
       console.log(`ERROR: ===> ${error}`);
     }
   }
+
+  useEffect(() => {
+    if (token) {
+      console.log(`token dans signIn.loadUserInfo via useEffect ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
+    }
+  },[token]);
 
   useEffect(() => {
     if (useUserInfos) {

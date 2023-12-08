@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { PostForm } from '../../api/CRUD.api';
 import { useNavigate } from "react-router-dom";
 function SignUp() {
-    // État local pour stocker les valeurs du formulaire
+    
     const [inputValue, setInputValue] = useState({
         nom: "nomTest",
         prenom: "prenomTest",
@@ -13,10 +13,6 @@ function SignUp() {
         password: "login_test",
     });
 
-    //! // État local pour déterminer si les données sont prêtes à être envoyées
-    //! const [readyToSend, isReadyToSend] = useState(false);
-
-    //gestion form.
     const handleChange = (name, value) => {
         setInputValue((prevState) => ({ ...prevState, [name]: value }));
     };
@@ -37,11 +33,9 @@ function SignUp() {
         }
     };
 
-    //call de la fct à la soumission du form. 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //1st Validations  
         if (inputValue.nom === '') {
             alert('veuillez saisir un nom.');
             return;
