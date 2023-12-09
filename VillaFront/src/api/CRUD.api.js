@@ -1,34 +1,31 @@
 import axios from "axios";
 
 
-
-
-
 export const PostForm = async (data, route) => {
+    
     try {
-        console.log(`Call.api ==> ${route}`)
+        console.log(`data dans Postform.CRUD ==> ${data} stringified ==> ${JSON.stringify(data)}`);//!LOG
+
         const response = await axios.post(`http://localhost:3002/api/${route}`, data)
-        console.log(`PostForm return = response ==> ${JSON.stringify(response.data)}`);
-        return response;
+        console.log(`response dans Postform.CRUD ==> ${response} stringified ==> ${JSON.stringify(response)}`);//!LOG
+
+         return response;
+         
 
     } catch (err) {
-        console.error(err)
-        console.log("POSTcall to API FAILED!!!===>", err);
-
-    }
+  
+        console.log(`PostForm return error.response (ici stringifié) ===> ${JSON.stringify(err.response)}`);
+        return err.response
+    
+     }
 }
 
 export const EditForm = async (data, route) => {
     try {
-        console.log(`Call.api ==> ${route}`)
         const response = await axios.put(`http://localhost:3002/api/${route}`, data)
-
         if (response.status == 200 || 201) {
-            console.log(`call.api.EDIT response.status  ===> ${response.status}`);
             return response;
         } else {
-            console.log(`call.api.EDIT response.status  ===> ${response.status}`);
-
             return response;
         }
     } catch (err) {
@@ -39,15 +36,11 @@ export const EditForm = async (data, route) => {
 
 export const DeleteForm = async (data, route) => {
     try {
-        console.log(`Call.api ==> ${route}`)
         const response = await axios.delete(`http://localhost:3002/api/${route}`, data)
-
         if (response.status == 200 || 201) {
-            console.log(`call.api.Delete response.status  ===> ${response.status}`);
             return response;
         } else {
             console.log(`call.api.Delete response.status  ===> ${response.status}`);
-
             return response;
         }
     } catch (err) {
@@ -56,37 +49,28 @@ export const DeleteForm = async (data, route) => {
     }
 }
 
-export const getOne = async (id, route) => {
+export const getOneById = async (id, route) => {
     try {
-        console.log(`Call.api ==> ${route}`)
         const response = await axios.get(`http://localhost:3002/api/${route}${id}`)
-
         if (response.status == 200 || 201) {
-            console.log(`call.api.GetOne response.status  ===> ${response.status}`);
-            return response;
+           return response;
         } else {
-            console.log(`call.api.GetOne response.status  ===> ${response.status}`);
-
+            console.log(`!!!--- call.api.GetOneById response.status  ===> ${response.status}---!!!`);
             return response;
         }
     } catch (err) {
         console.error(err)
-        console.log("Deletecall to API FAILED!!!===>", err);
+        console.log("getOneById call to API FAILED!!!===>", err);
     }
 }
 
 export const getAll = async (route) => {
     try {
-        console.log(`try Call.api ==> ${route}`)
         const response = await axios.get(`http://localhost:3002/api/${route}`)
-
         if (response.status == 200 || 201) {
-            console.log(`response=====>${response.statusText}`);
-            // console.log(`call.api.GetAll response status ===> ${response.status}`);
             return response;
         } else {
-            console.log(`call.api.GetAll response status ===> ${response.statusText}`);
-
+            console.log(`!!!--- call.api.GetAll response status ===> ${response.statusText} ---!!!`);
             return response;
         }
     } catch (err) {
@@ -94,6 +78,7 @@ export const getAll = async (route) => {
         console.log("getAll call to API FAILED!!!===>", err);
     }
 }
+
 
 
 

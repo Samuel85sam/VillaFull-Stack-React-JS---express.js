@@ -1,112 +1,156 @@
-import { React, useState, useEffect } from "react";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { React, useEffect } from "react";
+import { PostForm, getOneById } from "../../api/CRUD.api";
+import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../../store/authStore";
-import { PostForm } from "../../api/CRUD.api";
+import { GetToken } from '../../services/auth.services';
 
+const defaultTheme = createTheme();
 
+const SignIn =  () => {
+  const addUserInfos = useAuthStore((state) => state.addUserData);
+  const checkUserInfos = useAuthStore((state) => state.userData);
+  const navigate = useNavigate();
+  const token = GetToken()
+  const loadUserInfos = async (userId) => {
+    try {
+      const route = 'auth/GETONEbyID/';
+      const id = userId;
+      const response = await getOneById(id, route);
+      const userInfos = response.data
 
-function SignIn() {
-    const login = useAuthStore((state) => state.login)
-
-    // État local pour stocker les valeurs des champs du formulaire
-    const [inputValue, setInputValue] = useState({
-        loginName: "SamDem",
-        password: "SamDem",
-    });
-
-    //! // État local pour déterminer si les données sont prêtes à être envoyées
-    // !const [readyToSend, isReadyToSend] = useState(false);
-
-    //gestion form.
-    const handleChange = (name, value) => {
-        setInputValue((prevState) => ({ ...prevState, [name]: value }));
-    };
-
-    //redirection after-POST
-    const navigate = useNavigate();
-    const redirect = async () => {
-        try {
-            navigate("userDashboard");
-            console.log('====================> REDIRECT TO USER INDEX  PAGE');
-            //window.useNavigate()
-        } catch (err) {
-            console.error(err);
-        }
+      if (response.status === 200 || response.status === 201 ) {
+         addUserInfos(userInfos)
+      }else{
+        console.log(`response.status dans signIn.loadUserInfo ==> ${response.status} stringified ==> ${JSON.stringify(response.status)}`);//!LOG
+        console.log(`authStore==> userInfos UnStored!!!`);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des infos utilisateur:', error);//!LOG
     }
+  };
 
-   // const user = useStore(state => state.userInfos)
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData);
+    postCheckAndRedirect(data)
+  };
 
-    const postCheckAndRedirect = async (inputValue) => {
-        const formValues = inputValue
-        const route = 'auth/LOGIN';
-        const result = await PostForm(formValues, route);
-        console.log(`result PostForm ===>${JSON.stringify(result)}`);
-        if (result.status === 200 || 201) {
-            redirect()
-            //console.log("REGISTER DONE ==> reload login page ");
-        }
-        else if (result.status === !200 || 201) {
-            redirect()
-            console.alert("REGISTER FAILED Fail");
-            console.log("REGISTER FAILED ==> reload login page ");
-        }
-        //redirection
-        redirect()
+  const postCheckAndRedirect = async (data) => {
+    try {
+      const route = 'auth/LOGIN';
+      const result = await PostForm(data, route);
+
+      if (result.status === 200 || result.status === 201) {
+        const userId = result.data.user.id
+        loadUserInfos(userId);
+       }
+      else if (result.status === 401) {
+        navigate('/auth')
+        alert("Utilisateur inexistant");
+      }
+      else if (result.status === 418) {
+        navigate('/auth')
+        alert('I refuse the attempt to brew coffee    with a      teapot.')
+      }
+      else {
+        console.log(`(4)result stringifié dans signIn.postCkeckAndRedirect ===> ${JSON.stringify(result)}`);//!LOG
+      }
     }
-
-    //call de la fct à la soumission du form.
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        //1st Validation 
-        if (inputValue.loginName === "") {
-            alert("veuillez saisir un nom.");
-            return;
-        }
-        if (inputValue.password === "") {
-            alert("veuillez saisir un password.");
-            return;
-        }
-
-        postCheckAndRedirect(inputValue)
-
-        // !isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
+    catch (error) {
+      console.log("(5)LOGIN POST TO API OR RESPONSE FAILED");
+      console.log(`ERROR: ===> ${error}`);
     }
+  }
 
-    //! useEffect(() => {
-    //!     // Si "readyToSend" est true, alors appelez PostToApi
-    //!     readyToSend === false ? null : PostToApi(inputValue);
-    //! }, [readyToSend]);
+   useEffect(() => {
+     
+    if (checkUserInfos && token) {
+      console.log(`STORED ====>${JSON.stringify(checkUserInfos)}`);//!LOG
+      navigate('/index');
+    } else{
+      console.log(`token dans useEffect de SignIn ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
+      console.log(`checkUserinfos dans useEffect de SignIn ==> ${checkUserInfos} stringified ==> ${JSON.stringify(checkUserInfos)}`);//!LOG
+    }
+  }, [checkUserInfos,token])
 
-    return (
-        <>
-            <div className="LoginDiv">
-                <form>
-                    <label htmlFor="Login">Login :</label>
-                    <input
-                        label="loginName"
-                        type="text"
-                        name="loginName"
-                        className="input"
-                        value={inputValue.loginName}
-                        onChange={(e) => handleChange("loginName", e.target.value)}
-                    />
-                    <label htmlFor="noPasswordm">Password :</label>
-                    <input
-                        label="password"
-                        type="password"
-                        name="password"
-                        className="input"
-                        value={inputValue.password}
-                        onChange={(e) => handleChange("password", e.target.value)}
-                    />
-                    <button type="submit" onClick={handleSubmit}>
-                        → Connexion →
-                    </button>
-                </form>
-            </div>
-        </>
-    );
-};
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Connexion à votre espace personnel
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="loginName"
+              label="loginName"
+              name="loginName"
+              autoComplete="loginName"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
+}
 
 export default SignIn
+

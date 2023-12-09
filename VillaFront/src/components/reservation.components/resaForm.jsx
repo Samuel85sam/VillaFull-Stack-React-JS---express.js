@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { PostForm } from '../../api/CRUD.api';
+import { useNavigate } from 'react-router-dom';
 
 function ResaForm() {
   const [inputValue, setInputValue] = useState({
@@ -11,32 +11,12 @@ function ResaForm() {
     mail: "samueldemees@gmail.com",
     residentQty: "3",
   });
-  // État local pour déterminer si les données sont prêtes à être envoyées
-  const [readyToSend, isReadyToSend] = useState(false);
-
+ 
+    const navigate = useNavigate 
   //gestion form.
   const handleChange = (name, value) => {
     setInputValue((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  //redirection after-POST
-  const navigate = useNavigate();
-  const redirect = async () => {
-    const result = await PostForm()
-    try {
-      if (result === 200 || 201) {
-        navigate("");
-
-        window.location.reload();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  //call API
-  const route = 'reservation/ADD'
-
 
   //call de la fct à la soumission du form. 
   const handleSubmit = (e) => {
@@ -68,27 +48,12 @@ function ResaForm() {
       return;
     }
 
-    isReadyToSend(true); // Définit l'état "readyToSend" sur true pour indiquer que les données sont prêtes à être envoyées au serveur
-
     //call API
     const route = 'reservation/POST';
     PostForm(inputValue, route);
-
-
-    //redirection
-    redirect()
-
+    navigate('index')
 
   };
-
-  //! useEffect(() => {
-  //!   // Si "readyToSend" est true, alors appeler PostToApi
-  //!   readyToSend === false ? null : postLogin(inputValue);
-  //!   console.log("envoi inputValue envoyée à postToApi ↓↓↓");
-  //!   console.log(inputValue);
-  //! }, [readyToSend]);
-
-
 
   return (
     <>

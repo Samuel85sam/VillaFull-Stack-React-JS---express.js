@@ -9,7 +9,6 @@ const CommentsBook = () => {
   useEffect(() => {
     getAll(route)
     .then(result => setComments(result.data));
-    //console.log(result))
   }, [])
 
 

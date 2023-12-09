@@ -6,12 +6,21 @@ authRouter.route('/LOGIN')
     .all((res, req) => {
         res.statusCode(405).send('Login Unavalable')
     });
-
 authRouter.route('/REGISTER')
     .post(authController.register)
     .all((res, req) => {
         res.statusCode(405).send('Unavailable')
     });
+authRouter.route('/GETONEbyID/:id')
+    .get(authController.getUserById)
+    .all((res, req) => {
+        res.statusCode(405).send('Unavalable')
+    });
+authRouter.route('/GETONEbyLOGIN')
+    .get(authController.getUserByLogin)
+    .all((res, req) => {
+        res.statusCode(405).send('Unavalable')
+    })
 
 // authRouter.route('/users')
 // .post(authController.getAllUsers)

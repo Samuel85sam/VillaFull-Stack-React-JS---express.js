@@ -15,6 +15,11 @@ module.exports = (sequelize) => {
         //     allowNull: false,
         //     primaryKey: true,
         // },
+        admin: {
+            type: DataTypes.BOOLEAN(false),
+            allowNull: true,
+        },
+
         nom: {
             type: DataTypes.STRING(100),
             allowNull: false,
@@ -44,10 +49,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        JWT: {
+        JWT:{
             type: DataTypes.STRING(350),
-            allowNull: true,
-        },
+            allowNull:true,
+        }
     }, {
         // Option de création propre à Sequelize (voir doc)
         createdAt: true,

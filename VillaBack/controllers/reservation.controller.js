@@ -5,8 +5,7 @@ const reservationService = require('../services/reservation.service');
 const reservationController = {
     addResa: async (req, res) => {
         const resaData = req.body;
-        // console.log('req.body ===> ↓↓↓');
-        // console.log(req.body);
+ 
 
         const validatedData = await reservationValidator.validate(resaData);
         // Destructuring des données vérifées
@@ -18,12 +17,6 @@ const reservationController = {
             res
                 .status(201)
                 .json(resaInserted);
-                console.log(`firstName ==>  ${firstName}`);
-                console.log(`lastName ==>  ${lastName}`);
-                console.log(`dateIn ==>  ${dateIn}`);
-                console.log(`dateOut ==>  ${dateOut}`);
-                console.log(`mail ==>  ${mail}`);
-                console.log(`residentQty ==>  ${residentQty}`);
                 }
     },
 }

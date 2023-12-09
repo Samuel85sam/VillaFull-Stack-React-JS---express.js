@@ -3,13 +3,10 @@ const db = require("../models");
 const jwt = require("jsonwebtoken");
 
 
-
 const authService = {
   insert: async (data) => {
-    console.log(` data dans service ===> ${JSON.stringify(data)}`);
     try {
       const user = await db.user.create(data);
-      console.log(`user = ===>${user}`);
       return new userDto(user);
     } catch (error) {
       console.error('Erreur lors de la création de l\'utilisateur', error);
@@ -17,38 +14,28 @@ const authService = {
   },
 
   exist: async (loginName) => {
+    console.log(`loginName dans service.exist : ===>${loginName}`);
     const user = await db.user.findOne({
       where: { loginName },
     });
+    console.log(`user dans auth.service.exist ===>${user}`);
+
+    if (user === null) {
+      return null
+    }
 
     return new userDto(user);
   },
-  //! -------------------------------------------------------------------------------------
-  addJwt: async (jwt, id) => {
-    // Vérification de l'existence de l'utilisateur
-    const userFound = await db.user.findOne({
+
+  getUserById: async (id) => {
+    const user = await db.user.findOne({
       where: { id },
     });
-
-    // S'il existe, on lui donne un jwt (s'il n'en a pas encore)
-    const userUpdated = await userFound.update({ jwt });
-
-    console.log(`userFound updated ===>${JSON.stringify(userUpdated)}`);
-
-    return userUpdated;
-  },
-
-  getUserByToken: async (id) => {
-    const jwtExist = await db.user.findOne({
-      where: { id },
-    });
-
-    return jwtExist;
+    return user
   },
 
   verifyJwt: async (token) => {
     const secret = process.env.JWT_SECRET;
-
     try {
       const decoded = jwt.verify(token, secret);
       const userId = decoded.userId;
@@ -58,14 +45,22 @@ const authService = {
 
       return new userDto(user);
     } catch (err) {
-      console.error(err)
+      console.log(`====> Verification Token FAIL!!!!!!!!!!!!!!!!! ===> ERROR: ${err}`);
       return false;
     }
   },
-  //! ---------------------------------------------------------------------------------------
-  // fetchAll: async () =>{
-  //   const users = await db.user.
-  // }
+
+  addJwt: async (token, id) => {
+    const userFound = await db.user.findOne({
+      where: { id },
+    });
+    if (userFound) {
+      db.user.update({ JWT: token }, { where: { id } });
+      console.log(`JWT UPDATED IN DATABASE !!!!!!!`);
+    } else {
+      console.log('user not found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    }
+  },
 };
 
 module.exports = authService;

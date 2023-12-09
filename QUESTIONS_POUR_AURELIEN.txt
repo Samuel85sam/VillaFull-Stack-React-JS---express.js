@@ -3,23 +3,18 @@ BACK-------------------------------------------------
 
 1)
 
-avis controller l26 .location
 
-authService l26 ==>59
 
-où est stocké le JWT?
-...dans la db???
-
-comment utiliser le authStore avec zustand?
-
-utilise-t-on encore les guards?
+root ligne 21 useEffect fait tt bugger
 
 2)
 
 comment faire un select (by id?) en utilisant le hoover
 
 
-
+pas compris: <Navigate to='auth' replace state = {{from: location}} />
+(protectedRoutes ligne 16
+de la demo gruards
 
 
 
@@ -34,13 +29,3 @@ comment faire un select (by id?) en utilisant le hoover
 
 FRONT------------------------------------------------
 
-JE Ne COMPREND PAS LE USE EFFECT
-
-resaForm, signUpForm,signInForm et commentForm
-
-//! useEffect(() => {
-//!   // Si "readyToSend" est true, alors appeler PostToApi
-//!   readyToSend === false ? null : postLogin(inputValue);
-//!   console.log("envoi inputValue envoyée à postToApi ↓↓↓");
-//!   console.log(inputValue);
-//! }, [readyToSend]);
