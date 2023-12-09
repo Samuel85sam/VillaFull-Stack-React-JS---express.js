@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import { PostForm, getOneById } from "../../api/CRUD.api";
 import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
@@ -20,39 +20,25 @@ import { GetToken } from '../../services/auth.services';
 const defaultTheme = createTheme();
 
 const SignIn =  () => {
-  //const [readyToNav, setReadyToNav] = useState(false);
   const addUserInfos = useAuthStore((state) => state.addUserData);
-  const useUserInfos = useAuthStore((state) => state.userData);
+  const checkUserInfos = useAuthStore((state) => state.userData);
   const navigate = useNavigate();
-  const token =  GetToken();
-  console.log(`token dans SignIn ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG;
-  const checkAndNavigate = async (route) => {
-        const ready = await //TODO ==> trouver une façon d'attendre la recupération et le storage du token avant de rediriger
-  }
-
-
-  
-
+  const token = GetToken()
   const loadUserInfos = async (userId) => {
     try {
-      
       const route = 'auth/GETONEbyID/';
       const id = userId;
       const response = await getOneById(id, route);
       const userInfos = response.data
-      if (response.status === 200 ) {
-        console.log(`response.status dans signIn.loadUserInfo ==> ${response.status} stringified ==> ${JSON.stringify(response.status)}`);//!LOG
-        console.log(`token dans signIn.loadUserInfo ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
 
-        addUserInfos(userInfos)
-        checkAndNavigate('/index');
+      if (response.status === 200 || response.status === 201 ) {
+         addUserInfos(userInfos)
       }else{
         console.log(`response.status dans signIn.loadUserInfo ==> ${response.status} stringified ==> ${JSON.stringify(response.status)}`);//!LOG
-        console.log(`token dans signIn.loadUserInfo ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
         console.log(`authStore==> userInfos UnStored!!!`);
       }
     } catch (error) {
-      console.error('Erreur lors de la récupération des infos utilisateur:', error);
+      console.error('Erreur lors de la récupération des infos utilisateur:', error);//!LOG
     }
   };
 
@@ -60,7 +46,6 @@ const SignIn =  () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
-
     postCheckAndRedirect(data)
   };
 
@@ -74,36 +59,33 @@ const SignIn =  () => {
         loadUserInfos(userId);
        }
       else if (result.status === 401) {
-        console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
         navigate('/auth')
         alert("Utilisateur inexistant");
       }
       else if (result.status === 418) {
-        console.log(`result.status dans signIn.postCkeckAndRedirect ===> ${result.status}`);
         navigate('/auth')
         alert('I refuse the attempt to brew coffee    with a      teapot.')
       }
       else {
-        console.log(`result stringifié dans signIn.postCkeckAndRedirect ===> ${JSON.stringify(result)}`);
+        console.log(`(4)result stringifié dans signIn.postCkeckAndRedirect ===> ${JSON.stringify(result)}`);//!LOG
       }
     }
     catch (error) {
-      console.log("LOGIN POST TO API OR RESPONSE FAILED");
+      console.log("(5)LOGIN POST TO API OR RESPONSE FAILED");
       console.log(`ERROR: ===> ${error}`);
     }
   }
 
-  useEffect(() => {
-    if (token) {
-      console.log(`token dans signIn.loadUserInfo via useEffect ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
+   useEffect(() => {
+     
+    if (checkUserInfos && token) {
+      console.log(`STORED ====>${JSON.stringify(checkUserInfos)}`);//!LOG
+      navigate('/index');
+    } else{
+      console.log(`token dans useEffect de SignIn ==> ${token} stringified ==> ${JSON.stringify(token)}`);//!LOG
+      console.log(`checkUserinfos dans useEffect de SignIn ==> ${checkUserInfos} stringified ==> ${JSON.stringify(checkUserInfos)}`);//!LOG
     }
-  },[token]);
-
-  useEffect(() => {
-    if (useUserInfos) {
-      console.log(`STORED ====>${JSON.stringify(useUserInfos)}`);
-    }
-  }, [useUserInfos])
+  }, [checkUserInfos,token])
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -123,7 +105,6 @@ const SignIn =  () => {
           <Typography component="h1" variant="h5">
             Connexion à votre espace personnel
           </Typography>
-          {/* --------------------------------------------------- */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -163,15 +144,9 @@ const SignIn =  () => {
                   Forgot password?
                 </Link>
               </Grid>
-              {/* <Grid item>
-                <Link href="#" variant="body2" >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid> */}
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
