@@ -33,7 +33,7 @@ const ProtectedUserPages =   () => {
                     navigate('/auth')
                                         
         }
-    }, [token,isLoggedIn])
+    }, [token])
 
     return (
         <>

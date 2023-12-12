@@ -1,37 +1,54 @@
-import {React, useState} from 'react'
+import * as React from 'react';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo/DemoContainer';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
-import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar/DateRangeCalendar';
+import { styled } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
+import { DateRangePickerDay as MuiDateRangePickerDay } from '@mui/x-date-pickers-pro/DateRangePickerDay';
 
 
 const ResaCalendar = () => {
-    const [value, setValue] = useState([
-        dayjs('2022-04-17'),
-        dayjs('2022-04-21'),
-      ]);
-  return (
-    <>
-    <h2>Calendrier de resarvation</h2>
+  const DateRangePickerDay = styled(MuiDateRangePickerDay)(
+    ({
+      theme,
+      isHighlighting,
+      isStartOfHighlighting,
+      isEndOfHighlighting,
+      outsideCurrentMonth,
+    }) => ({
+      ...(!outsideCurrentMonth &&
+        isHighlighting && {
+        borderRadius: 0,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+        '&:hover, &:focus': {
+          backgroundColor: theme.palette.primary.dark,
+        },
+      }),
+      ...(isStartOfHighlighting && {
+        borderTopLeftRadius: '50%',
+        borderBottomLeftRadius: '50%',
+      }),
+      ...(isEndOfHighlighting && {
+        borderTopRightRadius: '50%',
+        borderBottomRightRadius: '50%',
+      }),
+    }),
+  );
 
+
+  return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DateRangeCalendar', 'DateRangeCalendar']}>
-        <DemoItem label="Uncontrolled calendar">
-          <DateRangeCalendar
-            defaultValue={[dayjs('2022-04-17'), dayjs('2022-04-21')]}
-          />
-        </DemoItem>
-        <DemoItem label="Controlled calendar">
-          <DateRangeCalendar
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
-          />
-        </DemoItem>
+      <DemoContainer components={['DateRangeCalendar']}>
+        <DateRangeCalendar
+          defaultValue={[dayjs('2022-04-17'), dayjs('2022-04-21')]}
+          slots={{ day: DateRangePickerDay }}
+        />
       </DemoContainer>
     </LocalizationProvider>
-    </>
-  )
+  );
 }
+
 
 export default ResaCalendar

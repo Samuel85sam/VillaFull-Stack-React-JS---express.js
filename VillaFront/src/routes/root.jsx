@@ -16,6 +16,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import ImgPiscine from '../IMG/imgVilla/piscine1Banner.jpeg'
 
 const Root = () => {
 
@@ -69,10 +70,7 @@ const Root = () => {
         </Link>,
         <Link to="comments">
             Livre d'Or
-        </Link>,
-        <Link to="auth">
-        connexion / créer un compte client 
-    </Link>
+        </Link>
     ];
     
     const settingsLinks = [
@@ -91,7 +89,16 @@ const Root = () => {
 
     return (
         <>
-            < AppBar position="static" >
+            < AppBar 
+                position="static"
+                sx={{
+                    backgroundImage: `url(${ImgPiscine})`,
+                    backgroundPositionY: 'bottom', 
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    height: "100%",
+                    }}
+             >
                 {/* AppBar est une barre d'application qui contient des composants comme Toolbar, Typography, IconButton, etc. */}
                 < Container maxWidth="xl" >
                     {/* Container est un composant de Material-UI qui enveloppe le contenu avec une largeur maximale. */}
@@ -100,7 +107,7 @@ const Root = () => {
                         {/*--------------------------------------------------------------------------------------------------------------------*/}
                         {/* Icon Villa + titre = Toolbar */}
                         {/* (mode petit écran) Icon menu */}
-                        < AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 5 }} />
+                        {/* < AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 5 }} /> */}
 
                         <Typography
                             variant="h6"
@@ -157,14 +164,23 @@ const Root = () => {
                                         <Typography textAlign="center">{page}</Typography>
                                     </MenuItem>
                                 ))}
+                                {isLoggedIn ? <Button variant="text" onClick={logOut}>
+                                    <Typography variant="h7">
+                                    Logout 
+                                    </Typography>
+                                </Button> : <Button variant="text" onClick={logIn}>
+                                    <Typography variant="h7">
+                                    Sign-In/Sign-Up
+                                    </Typography>
+                                </Button>}
                             </Menu>
                         </Box>
 
                         {/*--------------------------------------------------------------------------------------------------------------------*/}
-                        {/* (mode grand écran) Icon menu */}
+                        {/* (mode grand écran) Icon titre */}
 
 
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                        {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                         <Typography
                             variant="h5"
                             noWrap
@@ -197,6 +213,21 @@ const Root = () => {
                                     {page}
                                 </Button>
                             ))}
+                             {isLoggedIn ? <Button 
+                             variant="text" 
+                             onClick={logOut}
+                             sx={{ my: 2, color: 'white', }}>
+                                    <Typography variant="h7">
+                                    Logout 
+                                    </Typography>
+                                </Button> : <Button 
+                                variant="text" 
+                                onClick={logIn}
+                                sx={{ my: 2, color: 'white', }}>
+                                    <Typography variant="h7">
+                                    Sign-In/Sign-Up
+                                    </Typography>
+                                </Button>}
                         </Box>
 
                         {/*--------------------------------------------------------------------------------------------------------------------*/}
