@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getAll } from '../../api/CRUD.api'
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 const CommentsBook = () => {
   const [comments, setComments] = useState([])
@@ -18,9 +21,17 @@ const CommentsBook = () => {
 
         <ul>
           {comments.map(comment => (
+            <React.Fragment>
+
+            <CssBaseline />
+            <Container
+            maxWidth="xs"
+            >
             <li
               id="zero-state"
-              key={comment.id}>
+              key={comment.id}
+              
+              >
               <a>
                 <p>{comment.firstName}</p>
                 <p>{comment.lastName}</p>
@@ -28,6 +39,9 @@ const CommentsBook = () => {
                 <p>{comment.note}</p>
               </a>
             </li>
+                </Container>
+                </React.Fragment>
+
           ))}
         </ul>
       </div>

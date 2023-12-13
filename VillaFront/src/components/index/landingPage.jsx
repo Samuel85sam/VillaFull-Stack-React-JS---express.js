@@ -27,7 +27,7 @@ function LandingPage() {
  function WovenImageList() {
   return (
     <>
-    <ImageList sx={{ width: 1 , height: 1  }} variant="woven" cols={5} gap={15}>
+    <ImageList sx={{ width: 1 , height: 1  }} variant="woven" cols={3} gap={30}>
       {itemData.map((item) => (
         <ImageListItem 
         key={item.img}
@@ -97,7 +97,6 @@ const itemData = [
 
   return (
     <>
-    <h1> Landing page</h1>
     {WovenImageList()}
     </>
   );

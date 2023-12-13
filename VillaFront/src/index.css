@@ -2,3 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.css-8z7n5c-MuiImageList-root{
+    background-image: 
+    url( './IMG/imgVilla/h2oBG.jpg'
+    );
+    
+    background-size: cover;
+
+    }
+
+    .MuiImageListItem-img{
+        box-shadow: 10px 10px 15px 5px #0C2E70;
+    }
+
+    .Comments .Auth{
+        background-image: url('./IMG/imgBackGround/Background_Sea_Stones.jpg');
+        background-size: cover;
+        
+    }
+    .MuiContainer-maxWidthXs{
+        -webkit-box-shadow: 5px 5px 30px 5px #00BBFF;
+        box-shadow: 5px 5px 30px 5px #00BBFF;
+    }

@@ -1,6 +1,7 @@
 import { useState,React } from 'react';
 import CommentsBook from '../components/comments.components/commentsBook'
 import CommentForm from '../components/comments.components/commentForm'
+import Button from '@mui/material/Button';
 
 function Comments() {
   const [writeComment, setWriteComment] = useState(true);
@@ -9,15 +10,19 @@ function Comments() {
   };
 
   return (
-    <>
-      <h1>Livre d'or</h1>
+    <div className='Comments'>
       <div id="sidebar">
-        <button onClick={handleAction}>
+        <Button 
+        variant="contained"
+        onClick={handleAction}
+        color = 'primary' 
+        fullWidth= {true}
+        size = 'large'>
           {writeComment ? "Laisser un Commentaire" : "Livre D'Or"}
-        </button>
+        </Button>
         {writeComment ? <CommentsBook /> : <CommentForm />}
       </div>
-    </>
+    </div>
 
   )
 }

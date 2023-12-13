@@ -90,8 +90,9 @@ const Root = () => {
     return (
         <>
             < AppBar 
-                position="static"
+                position = "static"
                 sx={{
+                    // position:'fixed',
                     backgroundImage: `url(${ImgPiscine})`,
                     backgroundPositionY: 'bottom', 
                     backgroundRepeat: "no-repeat",
